@@ -1,5 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import styles from "./HeroBanner.module.css";
+import { useNavigate } from "react-router";
 
 export interface Movie {
   id: number;
@@ -27,7 +28,7 @@ export default function HeroBanner() {
         const apiKey =
           import.meta.env.VITE_TMDB_API_KEY ||
           "2312b7734c4449f7fe8ddaf462ec1141"; // fallback nếu chưa cấu hình env
-        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US`;
+        const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
@@ -77,15 +78,51 @@ export default function HeroBanner() {
     setCurrent(0);
   }, [filtered.length]);
 
-  useEffect(() => {
+  // Auto-advance: dùng timeout để luôn đủ 4s sau mỗi lần user click
+  const timeoutRef = useRef<number | null>(null);
+  const scheduleNext = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (filtered.length === 0) return;
-    const interval = setInterval(() => {
+    timeoutRef.current = window.setTimeout(() => {
       setCurrent((prev) => (prev + 1) % filtered.length);
     }, 4000);
-    return () => clearInterval(interval);
   }, [filtered.length]);
 
-  if (loading) return <div>Loading...</div>;
+  // Mỗi khi current thay đổi (do click hoặc auto) lên lịch lại 4s
+  useEffect(() => {
+    scheduleNext();
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [current, scheduleNext]);
+
+  // Khi list đổi, reset timer
+  useEffect(() => {
+    scheduleNext();
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [filtered.length, scheduleNext]);
+
+  const navigate = useNavigate();
+
+  if (loading)
+    return (
+      <div className={styles.poster}>
+        <div className={styles.overlay}></div>
+        <div className={styles.skelTitle}></div>
+        <div className={styles.skelLines}>
+          <div className={styles.skelLine}></div>
+          <div className={styles.skelLine}></div>
+          <div className={styles.skelLineShort}></div>
+        </div>
+        <div className={styles.skelThumbRow}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className={styles.skelThumb}></div>
+          ))}
+        </div>
+      </div>
+    );
   if (error) return <div>Lỗi tải dữ liệu: {error}</div>;
   if (filtered.length === 0) return <div>Không có dữ liệu phim hợp lệ.</div>;
 
@@ -97,20 +134,29 @@ export default function HeroBanner() {
   return (
     <div className={styles.poster}>
       <img
-        className={styles.background}
+        key={current}
+        className={`${styles.background} ${styles.fadeImage}`}
         src={bgSrc}
         alt="" /* ảnh nền mang tính trang trí */
         aria-hidden="true"
       />
       <div className={styles.overlay}></div>
 
-      <div className={styles.content}>
+      <div
+        key={current + "-content"}
+        className={`${styles.content} ${styles.fadeContent}`}
+      >
         <h1>{movie.title}</h1>
         {movie.original_title && movie.original_title !== movie.title && (
           <p>{movie.original_title}</p>
         )}
         {movie.overview && <p className={styles.desc}>{movie.overview}</p>}
-        <button className={styles.play}>▶ Xem ngay</button>
+        <button
+          className={styles.play}
+          onClick={() => navigate(`/movie/${movie.id}`)}
+        >
+          ▶ Xem ngay
+        </button>
       </div>
 
       <div className={styles.thumbnails}>

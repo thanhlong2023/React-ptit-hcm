@@ -120,3 +120,87 @@
     height: 34px;
   }
 }
+
+/* Minimal skeleton */
+@keyframes msSimple {
+  0% {
+    background-position: -180px 0;
+  }
+  100% {
+    background-position: 180px 0;
+  }
+}
+.skelPoster,
+.skelBar {
+  background: #2c3241;
+  background-image: linear-gradient(
+    90deg,
+    #2c3241 0%,
+    #3a4354 50%,
+    #2c3241 100%
+  );
+  background-size: 360px 100%;
+  animation: msSimple 1.5s linear infinite;
+  border-radius: 10px;
+}
+.skelPoster {
+  aspect-ratio: 2/3;
+  width: 100%;
+}
+.skelBar {
+  height: 14px;
+  width: 70%;
+  margin-top: 8px;
+  border-radius: 6px;
+}
+
+/* Skeleton Styles */
+@keyframes msShimmer {
+  0% {
+    background-position: -300px 0;
+  }
+  100% {
+    background-position: 300px 0;
+  }
+}
+.skelScroller {
+  pointer-events: none;
+}
+.skelCard,
+.skelLine,
+.skelMini {
+  background: #2b3142;
+  background-image: linear-gradient(
+    90deg,
+    #2b3142 0%,
+    #3a4355 45%,
+    #2b3142 80%
+  );
+  background-size: 600px 100%;
+  animation: msShimmer 1.6s linear infinite;
+}
+.skelCard {
+  width: 100%;
+  aspect-ratio: 2/3;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.45);
+}
+.skelLine {
+  margin-top: 0.55rem;
+  height: 14px;
+  width: 70%;
+  border-radius: 6px;
+}
+.skelMini {
+  width: 100px;
+  height: 18px;
+  border-radius: 6px;
+}
+.errorBox {
+  padding: 0.85rem 1.1rem;
+  background: #2d2530;
+  border: 1px solid #523a55;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #ffb9c4;
+}
