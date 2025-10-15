@@ -18,6 +18,39 @@
   transition: opacity 1s ease-in-out;
 }
 
+/* Fade animation for changing background */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.fadeImage {
+  animation: fadeInScale 0.9s ease forwards;
+}
+
+/* Content fade/slide */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fadeContent {
+  animation: fadeSlideUp 0.55s ease forwards;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -118,6 +151,139 @@
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
   pointer-events: none;
+}
+
+/* Minimal skeleton additions */
+@keyframes simpleShimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+.skelTitle,
+.skelLine,
+.skelThumb,
+.skelLineShort {
+  background: #2a2f3c;
+  background-image: linear-gradient(
+    90deg,
+    #2a2f3c 0%,
+    #3a4252 50%,
+    #2a2f3c 100%
+  );
+  background-size: 400px 100%;
+  animation: simpleShimmer 1.6s linear infinite;
+  border-radius: 8px;
+}
+.skelTitle {
+  position: absolute;
+  top: 25%;
+  left: 6%;
+  width: 55%;
+  height: 54px;
+}
+.skelLines {
+  position: absolute;
+  top: calc(25% + 70px);
+  left: 6%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.skelLine {
+  height: 14px;
+  width: 100%;
+}
+.skelLineShort {
+  height: 14px;
+  width: 65%;
+}
+.skelThumbRow {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+.skelThumb {
+  width: 110px;
+  height: 62px;
+  border-radius: 10px;
+}
+
+/* Skeleton */
+@keyframes hbShimmer {
+  0% {
+    background-position: -500px 0;
+  }
+  100% {
+    background-position: 500px 0;
+  }
+}
+.skelBg,
+.skelTitle,
+.skelLine,
+.skelButton,
+.skelThumb {
+  background: #202633;
+  background-image: linear-gradient(
+    90deg,
+    #202633 0%,
+    #2e3747 40%,
+    #202633 80%
+  );
+  background-size: 800px 100%;
+  animation: hbShimmer 2s linear infinite;
+}
+.skelBg {
+  position: absolute;
+  inset: 0;
+}
+.skelContent {
+  position: absolute;
+  top: 25%;
+  left: 6%;
+  z-index: 3;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.skelTitle {
+  height: 56px;
+  width: 70%;
+  border-radius: 10px;
+}
+.skelLine {
+  height: 16px;
+  width: 95%;
+  border-radius: 8px;
+}
+.skelLine.short {
+  width: 60%;
+}
+.skelButton {
+  height: 48px;
+  width: 160px;
+  border-radius: 28px;
+}
+.skelThumbRow {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 4;
+}
+.skelThumb {
+  width: 120px;
+  height: 68px;
+  border-radius: 10px;
 }
 
 /* =============== Responsive =============== */

@@ -61,7 +61,26 @@ export default function MovieSection({ title, apiUrl }: MovieSectionProps) {
     el.scrollTo({ left: target, behavior: "smooth" });
   }, []);
 
-  if (movies.length === 0) return null; // keep current behavior
+  if (movies.length === 0) {
+    return (
+      <div className={styles.section}>
+        <div className={styles.header}>
+          <h2>{title}</h2>
+          <div></div>
+        </div>
+        <div className={styles.carouselWrap}>
+          <div className={styles.scroller}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className={styles.cardWrapper}>
+                <div className={styles.skelPoster}></div>
+                <div className={styles.skelBar}></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.section}>
