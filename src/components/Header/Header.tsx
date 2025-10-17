@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
 
+interface Genre {
+  id: number;
+  name: string;
+}
+
 export default function Header() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [genres, setGenres] = useState<Genre[]>([]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -16,7 +22,26 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Fetch genres
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+    if (!apiKey) return;
+
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`)
+      .then(res => res.json())
+      .then(data => setGenres(data.genres?.slice(0, 8) || []))
+      .catch(err => console.error("Error fetching genres:", err));
+  }, []);
+
   const navigator = () => navigate("/");
+
+  const handleGenreClick = (genreId: number) => {
+    navigate(`/search?genre=${genreId}`);
+  };
+
+  const handleCountryClick = (country: string) => {
+    navigate(`/search?country=${country}`);
+  };
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.solid : ""}`}>
@@ -37,26 +62,40 @@ export default function Header() {
           <SearchBox />
         </div>
         <nav className={styles.nav} aria-label="Chính">
-          <NavLink to="#" className={styles.link}>
+          <button 
+            className={styles.link}
+            onClick={() => navigate("/search?type=movie")}
+          >
             Phim Lẻ
-          </NavLink>
-          <NavLink to="#" className={styles.link}>
+          </button>
+          <button 
+            className={styles.link}
+            onClick={() => navigate("/search?type=tv")}
+          >
             Phim Bộ
-          </NavLink>
+          </button>
           <div className={styles.dropdown}>
             <button className={styles.dropBtn}>Thể loại ▾</button>
             <div className={styles.menu}>
-              <button>Hành động</button>
-              <button>Tâm lý</button>
-              <button>Kịch tính</button>
+              {genres.map(genre => (
+                <button 
+                  key={genre.id} 
+                  onClick={() => handleGenreClick(genre.id)}
+                >
+                  {genre.name}
+                </button>
+              ))}
             </div>
           </div>
           <div className={styles.dropdown}>
             <button className={styles.dropBtn}>Quốc gia ▾</button>
             <div className={styles.menu}>
-              <button>Mỹ</button>
-              <button>Hàn</button>
-              <button>Nhật</button>
+              <button onClick={() => handleCountryClick("US")}>Mỹ</button>
+              <button onClick={() => handleCountryClick("KR")}>Hàn Quốc</button>
+              <button onClick={() => handleCountryClick("CN")}>Trung Quốc</button>
+              <button onClick={() => handleCountryClick("JP")}>Nhật Bản</button>
+              <button onClick={() => handleCountryClick("TH")}>Thái Lan</button>
+              <button onClick={() => handleCountryClick("GB")}>Anh</button>
             </div>
           </div>
         </nav>
