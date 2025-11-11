@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/services/authService.ts
-
 const API_BASE_URL = "http://localhost:3000";
 const USER_TOKEN_KEY = 'user_token';
 
@@ -56,11 +54,9 @@ export const register = async (userData: any): Promise<AuthResponse> => {
 };
 
 
-// ... (Các hàm login, saveAuthToken, getAuthToken, removeAuthToken giữ nguyên) ...
-
 export const login = async (credentials: any): Promise<AuthResponse> => {
   try {
-    // ... logic login giữ nguyên ...
+    // logic login 
     const url = `${API_BASE_URL}/users?email=${encodeURIComponent(credentials.email)}`;
     
     const response = await fetch(url);

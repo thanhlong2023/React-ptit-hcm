@@ -107,7 +107,7 @@ export default function HeroBanner() {
 
   const navigate = useNavigate();
 
-  // 🔑 LOGIC MỚI: Xử lý nút "Xem ngay" (Kiểm tra Auth)
+  // Xử lý nút "Xem ngay" (Kiểm tra Auth)
   const handleWatchNow = (movieId: number) => {
     if (getAuthToken()) {
       // Đã đăng nhập: Chuyển đến trang chi tiết
@@ -164,7 +164,7 @@ export default function HeroBanner() {
         )}
         {movie.overview && <p className={styles.desc}>{movie.overview}</p>}
 
-        {/* 🔑 CẬP NHẬT NÚT XEM NGAY: Gọi hàm kiểm tra Auth */}
+        {/* Gọi hàm kiểm tra Auth */}
         <button
           className={styles.play}
           onClick={() => handleWatchNow(movie.id)}

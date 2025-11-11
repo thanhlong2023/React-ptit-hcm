@@ -23,10 +23,10 @@ function LoginForm() {
     try {
       const response = await login({ email, password });
       
-      // Kiểm tra có thành công và có token giả không
+      // Kiểm tra có thành công 
       if (response.success && response.token) { 
         
-        // 🔑 Lưu token giả vào Local Storage
+        // Lưu token giả vào Local Storage
         saveAuthToken(response.token); 
         
         console.log('Đăng nhập thành công, người dùng:', response.user);

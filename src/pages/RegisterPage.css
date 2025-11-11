@@ -1,32 +1,27 @@
-/* Container chính, căn giữa màn hình */
 .signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Nền tối, phù hợp với trang phim */
-  background-color: #141414; /* Màu đen/xám đậm */
-  color: #fff; /* Chữ màu trắng */
+  background-color: #141414; 
+  color: #fff; 
 }
 
-/* Form */
 .signup-form {
   background-color: #1c1c1c;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   width: 100%;
-  max-width: 400px; /* Giới hạn chiều rộng form */
+  max-width: 400px;
 }
 
-/* Tiêu đề */
 .signup-form h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #e50914; /* Màu đỏ đặc trưng, như Netflix */
+  color: #e50914;
 }
 
-/* Nhóm Input */
 .form-group {
   margin-bottom: 20px;
 }
@@ -37,7 +32,6 @@
   font-weight: bold;
 }
 
-/* Input Fields */
 .signup-form input {
   width: 100%;
   padding: 12px;
@@ -46,7 +40,7 @@
   background-color: #333;
   color: #fff;
   font-size: 16px;
-  box-sizing: border-box; /* Quan trọng để padding không làm hỏng width */
+  box-sizing: border-box; 
 }
 
 .signup-form input:focus {
@@ -54,11 +48,11 @@
   background-color: #444;
 }
 
-/* Nút Đăng ký */
+
 .submit-button {
   width: 100%;
   padding: 12px;
-  background-color: #e50914; /* Màu đỏ nổi bật */
+  background-color: #e50914;
   color: white;
   border: none;
   border-radius: 4px;
@@ -72,7 +66,6 @@
   background-color: #ff3847;
 }
 
-/* Thông báo lỗi */
 .error-message {
   color: #ff0000;
   background-color: #330000;
@@ -82,7 +75,6 @@
   text-align: center;
 }
 
-/* Liên kết Đăng nhập */
 .login-link {
     text-align: center;
     margin-top: 20px;

@@ -2,11 +2,10 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
-// BỔ SUNG: Import các hàm quản lý Auth (Giả định bạn đã có file này)
 import { getAuthToken, removeAuthToken } from "../../services/authService";
 
 export default function Header() {
-  // 🔑 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT (KHÔNG CÓ IF/ELSE)
+  // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT 
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
