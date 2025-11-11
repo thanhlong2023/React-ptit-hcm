@@ -1,6 +1,7 @@
 import styles from "./MovieCard.module.css";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getAuthToken } from "../../services/authService";
 
 interface MovieCardProps {
   movie: {
@@ -14,11 +15,23 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const navigate = useNavigate();
-  const goDetail = () => navigate(`/movie/${movie.id}`);
+
+  // Kiểm tra Auth trước khi chuyển đến chi tiết
+  const goDetail = () => {
+    const detailPath = `/movie/${movie.id}`;
+    if (getAuthToken()) {
+      // Đã đăng nhập: Chuyển đến trang chi tiết
+      navigate(detailPath);
+    } else {
+      // Chưa đăng nhập: Chuyển đến trang Đăng nhập và thêm redirect path
+      navigate(`/login?redirect=${detailPath}`);
+    }
+  };
+
   return (
     <div
       className={styles.card}
-      onClick={goDetail}
+      onClick={goDetail} // Gọi hàm goDetail 
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {

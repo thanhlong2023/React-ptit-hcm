@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "6b73",
+      "email": "quy@gmail.com",
+      "password": "qazxsw12",
+      "fullName": "Trương Công Quý"
+    },
+    {
+      "id": "a3ce",
+      "email": "bao@gmail.com",
+      "password": "qazxsw123",
+      "fullName": "Đặng Hoàng Bảo"
+    },
+    {
+      "id": "4a3f",
+      "email": "hong@gmail.com",
+      "password": "qazxsw1234",
+      "fullName": "Vũ Thị Ánh Hồng"
+    }
+  ]
+}
