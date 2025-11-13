@@ -1,16 +1,11 @@
 {
   "users": [
     {
-      "id": "6b73",
+      "id": "9fc2",
       "email": "quy@gmail.com",
       "password": "qazxsw12",
-      "fullName": "Trương Công Quý"
-    },
-    {
-      "id": "a3ce",
-      "email": "bao@gmail.com",
-      "password": "qazxsw123",
-      "fullName": "Đặng Hoàng Bảo"
+      "fullName": "Trương Công Quý",
+      "createdAt": "2025-11-13T00:22:28.396Z"
     }
   ]
 }

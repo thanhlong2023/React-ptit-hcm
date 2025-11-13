@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import styles from "./HeroBanner.module.css";
 import { useNavigate } from "react-router";
-import { getAuthToken } from "../../services/authService";
 
 export interface Movie {
   id: number;
@@ -107,17 +106,6 @@ export default function HeroBanner() {
 
   const navigate = useNavigate();
 
-  // Xử lý nút "Xem ngay" (Kiểm tra Auth)
-  const handleWatchNow = (movieId: number) => {
-    if (getAuthToken()) {
-      // Đã đăng nhập: Chuyển đến trang chi tiết
-      navigate(`/movie/${movieId}`);
-    } else {
-      // Chưa đăng nhập: Chuyển đến trang Đăng nhập và thêm redirect path
-      navigate(`/login?redirect=/movie/${movieId}`);
-    }
-  };
-
   if (loading)
     return (
       <div className={styles.poster}>
@@ -163,11 +151,9 @@ export default function HeroBanner() {
           <p>{movie.original_title}</p>
         )}
         {movie.overview && <p className={styles.desc}>{movie.overview}</p>}
-
-        {/* Gọi hàm kiểm tra Auth */}
         <button
           className={styles.play}
-          onClick={() => handleWatchNow(movie.id)}
+          onClick={() => navigate(`/movie/${movie.id}`)}
         >
           ▶ Xem ngay
         </button>

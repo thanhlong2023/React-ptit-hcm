@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
 import { login, saveAuthToken } from '../services/authService'; 
-import '../pages/RegisterPage.css'; 
+import './Auth.css'; 
 
 function LoginForm() {
   const [email, setEmail] = useState(''); 

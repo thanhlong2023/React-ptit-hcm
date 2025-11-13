@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { register } from '../services/authService'; 
-import "./RegisterPage.css"; 
+import "./Auth.css"
 
 function SignUpForm() {
   const [fullName, setFullName] = useState(''); 
@@ -23,8 +23,8 @@ function SignUpForm() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Mật khẩu phải có ít nhất 6 ký tự.'); 
+    if (password.length < 8) {
+      setError('Mật khẩu phải có ít nhất 8 ký tự.'); 
       return;
     }
 
@@ -90,7 +90,7 @@ function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            placeholder="Tối thiểu 6 ký tự"
+            placeholder="Tối thiểu 8 ký tự"
           /> 
         </div>
 
