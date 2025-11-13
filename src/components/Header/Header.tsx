@@ -10,12 +10,16 @@ import {
 } from "../../services/authService";
 import { useTheme } from "../Theme";
 
+interface Genre {
+  id: number;
+  name: string;
+}
+
 export default function Header() {
   // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const { isDark, toggleTheme } = useTheme();
+  const [genres, setGenres] = useState<Genre[]>([]);
 
   // State để theo dõi trạng thái đăng nhập
   const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthToken());
@@ -35,104 +39,26 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // HOOK CẬP NHẬT TRẠNG THÁI VÀ TÊN NGƯỜI DÙNG
+  // Fetch genres
   useEffect(() => {
-    const authenticated = !!getAuthToken();
-    setIsAuthenticated(authenticated);
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+    if (!apiKey) return;
 
-    if (authenticated) {
-      const userData = getStoredUserData(); // Lấy dữ liệu user
-      if (userData && userData.fullName) {
-        setUserName(userData.fullName); // Lưu tên vào state
-      }
-    } else {
-      setUserName("");
-    }
-  }, [location.pathname]);
-
-  const handleLogout = () => {
-    removeAuthToken();
-    setIsAuthenticated(false);
-    setUserName(""); // Xóa tên khi đăng xuất
-    navigate("/");
-  };
-
-  // Logic đóng menu nếu click ra ngoài
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      const authContainer = document.querySelector(
-        `.${styles.authDropdownContainer}`
-      );
-      if (authContainer && !authContainer.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isMenuOpen]);
-
-  if (authPaths.includes(location.pathname)) {
-    return null;
-  }
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`)
+      .then(res => res.json())
+      .then(data => setGenres(data.genres?.slice(0, 8) || []))
+      .catch(err => console.error("Error fetching genres:", err));
+  }, []);
 
   const navigator = () => navigate("/");
 
-  // LOGIC HIỂN THỊ NÚT ĐĂNG NHẬP / DROPDOWN
-  const AuthButtons = isAuthenticated ? (
-    // KHI ĐÃ ĐĂNG NHẬP: HIỂN THỊ HÌNH TRÒN VÀ DROPDOWN
-    <div className={styles.authDropdownContainer}>
-      <button
-        className={styles.profileButton}
-        onClick={() => setIsMenuOpen((prev) => !prev)}
-        aria-expanded={isMenuOpen}
-      >
-        <User size={24} color="#1b1f2f" />
-      </button>
+  const handleGenreClick = (genreId: number) => {
+    navigate(`/search?genre=${genreId}`);
+  };
 
-      {isMenuOpen && (
-        <div
-          className={styles.profileMenu}
-          onMouseLeave={() => setIsMenuOpen(false)}
-        >
-          {/* HIỂN THỊ TÊN NGƯỜI DÙNG ĐANG ĐĂNG NHẬP */}
-          <div className={styles.profileInfo}>
-            <p className={styles.userName}>{userName || "Tài khoản"}</p>
-          </div>
-
-          <div className={styles.menuItems}>
-            {/* YÊU THÍCH */}
-            <NavLink
-              to="/favorites"
-              className={styles.menuItem}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Heart size={18} /> Yêu thích
-            </NavLink>
-
-            {/* THOÁT (Đăng xuất) */}
-            <button
-              className={styles.menuItem}
-              onClick={() => {
-                handleLogout();
-                setIsMenuOpen(false);
-              }}
-            >
-              <LogOut size={18} /> Thoát
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  ) : (
-    // KHI CHƯA ĐĂNG NHẬP: HIỂN THỊ NÚT ĐĂNG NHẬP BÌNH THƯỜNG
-    <NavLink to="/login" className={styles.loginLink}>
-      Đăng Nhập
-    </NavLink>
-  );
+  const handleCountryClick = (country: string) => {
+    navigate(`/search?country=${country}`);
+  };
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.solid : ""}`}>
@@ -152,29 +78,41 @@ export default function Header() {
         <div className={styles.searchWrap}>
           <SearchBox />
         </div>
-        <div className={styles.navWrapper}>
-          <nav className={styles.nav} aria-label="Chính">
-            <NavLink to="/movies" className={styles.link}>
-              Phim Lẻ
-            </NavLink>
-            <NavLink to="/tv-series" className={styles.link}>
-              Phim Bộ
-            </NavLink>
-            <div className={styles.dropdown}>
-              <button className={styles.dropBtn}>Thể loại ▾</button>
-              <div className={styles.menu}>
-                <button>Hành động</button>
-                <button>Tâm lý</button>
-                <button>Kịch tính</button>
-              </div>
+        <nav className={styles.nav} aria-label="Chính">
+          <button 
+            className={styles.link}
+            onClick={() => navigate("/search?type=movie")}
+          >
+            Phim Lẻ
+          </button>
+          <button 
+            className={styles.link}
+            onClick={() => navigate("/search?type=tv")}
+          >
+            Phim Bộ
+          </button>
+          <div className={styles.dropdown}>
+            <button className={styles.dropBtn}>Thể loại ▾</button>
+            <div className={styles.menu}>
+              {genres.map(genre => (
+                <button 
+                  key={genre.id} 
+                  onClick={() => handleGenreClick(genre.id)}
+                >
+                  {genre.name}
+                </button>
+              ))}
             </div>
-            <div className={styles.dropdown}>
-              <button className={styles.dropBtn}>Quốc gia ▾</button>
-              <div className={styles.menu}>
-                <button>Mỹ</button>
-                <button>Hàn</button>
-                <button>Nhật</button>
-              </div>
+          </div>
+          <div className={styles.dropdown}>
+            <button className={styles.dropBtn}>Quốc gia ▾</button>
+            <div className={styles.menu}>
+              <button onClick={() => handleCountryClick("US")}>Mỹ</button>
+              <button onClick={() => handleCountryClick("KR")}>Hàn Quốc</button>
+              <button onClick={() => handleCountryClick("CN")}>Trung Quốc</button>
+              <button onClick={() => handleCountryClick("JP")}>Nhật Bản</button>
+              <button onClick={() => handleCountryClick("TH")}>Thái Lan</button>
+              <button onClick={() => handleCountryClick("GB")}>Anh</button>
             </div>
           </nav>
 

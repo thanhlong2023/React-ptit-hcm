@@ -1,10 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./SearchBox.module.css"; // dùng CSS module
+import { Search } from "lucide-react";
+import styles from "./SearchBox.module.css";
+
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  release_date: string;
+  vote_average: number;
+  overview: string;
+}
 
 export default function SearchBox() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Movie[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const searchBoxRef = useRef<HTMLDivElement>(null);
@@ -29,7 +39,7 @@ export default function SearchBox() {
     };
   }, [showDropdown]);
 
-  // gọi API TMDB khi người dùng dừng gõ 0.5s
+  // Fetch autocomplete results
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
@@ -46,68 +56,106 @@ export default function SearchBox() {
           )}&language=vi-VN`
         );
         const data = await res.json();
-        // Lọc kết quả, chỉ lấy phim (movie) và show truyền hình (tv)
-        const filteredResults = data.results?.filter(
-          (item: any) =>
-            (item.media_type === "movie" || item.media_type === "tv") &&
-            item.poster_path
-        );
-        setResults(filteredResults || []);
+        setResults(data.results?.slice(0, 6) || []); // Chỉ lấy 6 kết quả
         setShowDropdown(true);
       } catch (err) {
         console.error("Error fetching multi-search:", err);
       }
-    }, 500);
+    }, 300); // Giảm debounce xuống 300ms
 
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  const handleSelectResult = (result: any) => {
-    setShowDropdown(false);
-    setQuery("");
-    // Chuyển hướng đến trang chi tiết của phim hoặc show truyền hình
-    navigate(`/${result.media_type}/${result.id}`);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && query.trim()) {
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      // Navigate to search page with query parameter
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      setQuery(""); // Clear input after search
       setShowDropdown(false);
-      navigate(`/search?query=${encodeURIComponent(query.trim())}`);
-      // Không cần setQuery('') ở đây để người dùng thấy lại từ khóa trên trang tìm kiếm nếu cần
     }
   };
 
-  return (
-    <div className={styles.searchBox} ref={searchBoxRef}>
-      <input
-        type="text"
-        placeholder="Tìm phim, series, diễn viên..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => query && setShowDropdown(true)}
-        onKeyDown={handleKeyDown}
-        className={styles.input}
-      />
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
+  const handleSelectMovie = (movie: Movie) => {
+    setShowDropdown(false);
+    setQuery("");
+    navigate(`/movie/${movie.id}`); // Đi thẳng đến trang chi tiết phim
+  };
+
+  const handleInputFocus = () => {
+    if (query && results.length > 0) {
+      setShowDropdown(true);
+    }
+  };
+
+  const handleInputBlur = () => {
+    // Delay để cho phép click vào dropdown
+    setTimeout(() => setShowDropdown(false), 200);
+  };
+
+  return (
+    <div className={styles.searchWrapper}>
+      <form onSubmit={handleSearch} className={styles.searchBox}>
+        <input
+          type="text"
+          placeholder="Tìm phim theo tên, diễn viên"
+          value={query}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.searchBtn}>
+          <Search size={18} />
+        </button>
+      </form>
+
+      {/* Dropdown Results */}
       {showDropdown && results.length > 0 && (
-        <ul className={styles.dropdown}>
-          {results.slice(0, 8).map((result) => (
-            <li
-              key={result.id}
-              className={styles.item}
-              onClick={() => handleSelectResult(result)}
+        <div className={styles.dropdown}>
+          {results.map((movie) => (
+            <div
+              key={movie.id}
+              className={styles.dropdownItem}
+              onClick={() => handleSelectMovie(movie)}
             >
-              {result.poster_path && (
-                <img
-                  src={`https://image.tmdb.org/t/p/w92${result.poster_path}`}
-                  alt={result.title || result.name}
-                  className={styles.poster}
-                />
-              )}
-              <span className={styles.title}>{result.title || result.name}</span>
-            </li>
+              <div className={styles.posterWrapper}>
+                {movie.poster_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w154${movie.poster_path}`}
+                    alt={movie.title}
+                    className={styles.poster}
+                  />
+                ) : (
+                  <div className={styles.noPoster}>
+                    🎬
+                  </div>
+                )}
+              </div>
+              
+              <div className={styles.movieInfo}>
+                <div className={styles.movieTitle}>{movie.title}</div>
+              </div>
+            </div>
           ))}
-        </ul>
+          
+          {/* "Xem tất cả" option */}
+          <div 
+            className={styles.dropdownItem + ' ' + styles.seeAll}
+            onClick={() => {
+              navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+              setShowDropdown(false);
+              setQuery("");
+            }}
+          >
+            <Search size={16} />
+            <span>Xem tất cả kết quả cho "{query}"</span>
+          </div>
+        </div>
       )}
     </div>
   );

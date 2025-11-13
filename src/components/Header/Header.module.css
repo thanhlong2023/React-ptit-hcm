@@ -80,6 +80,12 @@
   color: #d5d5d5;
   text-decoration: none;
   position: relative;
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
 }
 .link:hover {
   color: #fff;
