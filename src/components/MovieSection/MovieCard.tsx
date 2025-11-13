@@ -19,57 +19,59 @@ interface MovieCardProps {
     release_date?: string; // For movies
     first_air_date?: string; // For TV shows
   };
+  // NEW PROP: Hàm callback cho trang Favorites
+  onFavoriteRemoved?: (movieId: number) => void;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+export default function MovieCard({
+  movie,
+  onFavoriteRemoved,
+}: MovieCardProps) {
+  // NHẬN PROP MỚI
   const navigate = useNavigate();
   // Navigate to movie or tv detail page based on presence of title/name
   const detailPath = movie.title ? `/movie/${movie.id}` : `/tv/${movie.id}`;
   const goDetail = () => navigate(detailPath);
 
-  // Lấy ID người dùng hiện tại
   const currentUserId = getCurrentUserId();
 
-  // STATE: Quản lý trạng thái trái tim (Khởi tạo là false)
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // HOOK: Tải trạng thái yêu thích ban đầu từ DB
   useEffect(() => {
-    // Chỉ chạy nếu người dùng đã đăng nhập
-    if (!currentUserId) return;
+    if (!currentUserId) {
+      setIsFavorite(false);
+      return;
+    }
 
     getFavoriteIds(currentUserId)
       .then((favoriteIds) => {
-        // Kiểm tra xem ID phim hiện tại có trong mảng DB không
         setIsFavorite(favoriteIds.includes(movie.id));
       })
       .catch((error) => {
         console.error("Lỗi tải trạng thái yêu thích:", error);
       });
-
-    // Phụ thuộc vào ID phim và ID người dùng
   }, [currentUserId, movie.id]);
 
-  // HÀM XỬ LÝ KHI CLICK VÀO TRÁI TIM
   const handleFavoriteToggle = async (e: React.MouseEvent) => {
-    // Ngăn chặn sự kiện click lan truyền lên div cha, tránh mở trang chi tiết
     e.stopPropagation();
 
     if (!getAuthToken() || !currentUserId) {
-      // CHƯA ĐĂNG NHẬP: Chuyển hướng đến trang Login
       navigate("/login?redirect=/");
       return;
     }
 
-    // Logic xử lý DB (Optimistic Update)
     const newStatus = !isFavorite;
-    setIsFavorite(newStatus); // Cập nhật giao diện ngay lập tức
+    setIsFavorite(newStatus);
 
-    // Gọi API để cập nhật DB
     const success = await toggleFavorite(currentUserId, movie.id, newStatus);
 
-    if (!success) {
-      // Nếu API thất bại, rollback lại trạng thái cũ
+    if (success) {
+      // LOGIC: Nếu xóa (newStatus là false) VÀ đang ở trang Favorites, gọi callback
+      if (!newStatus && onFavoriteRemoved) {
+        onFavoriteRemoved(movie.id);
+      }
+    } else {
+      // Nếu API thất bại, rollback
       setIsFavorite(!newStatus);
       console.error("Lỗi: Không thể cập nhật danh sách yêu thích trên DB.");
     }
@@ -92,18 +94,15 @@ export default function MovieCard({ movie }: MovieCardProps) {
       }}
     >
       <div className={styles.imageBox}>
-        {/* ICON TRÁI TIM */}
         <div
           className={`${styles.favoriteToggle} ${
             isFavorite ? styles.isFavorited : ""
-          }`} // Áp dụng isFavorited vào thẻ DIV cha
+          }`}
           onClick={handleFavoriteToggle}
         >
           <Heart
             size={20}
-            // Dùng class active để chuyển màu đỏ
             className={`${styles.heartIcon} ${isFavorite ? styles.active : ""}`}
-            // Đổ đầy trái tim khi là yêu thích
             fill={isFavorite ? "#ff3847" : "none"}
           />
         </div>
