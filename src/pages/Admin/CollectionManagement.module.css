@@ -1,0 +1,267 @@
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.addBtn {
+  padding: 12px 24px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.addBtn:hover {
+  background-color: #e63946;
+  transform: translateY(-2px);
+}
+
+/* Form Container */
+.formContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 24px;
+  background: linear-gradient(135deg, #1a1f2e 0%, #252a3a 100%);
+  border-radius: 12px;
+  border: 1px solid #2a2f3e;
+  margin-bottom: 30px;
+}
+
+.formSection h3 {
+  margin: 0 0 16px 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.formSection input,
+.formSection textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background-color: #0f1419;
+  border: 2px solid #2a2f3e;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formSection input:focus,
+.formSection textarea:focus {
+  outline: none;
+  border-color: #ff6b6b;
+  background-color: #1a1f2e;
+}
+
+.formSection textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.movieCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background-color: #0f1419;
+  border: 2px solid #2a2f3e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.movieCheckbox:hover {
+  border-color: #ff6b6b;
+  background-color: #1a1f2e;
+}
+
+.movieCheckbox input {
+  cursor: pointer;
+}
+
+.movieCheckbox span {
+  color: #ffffff;
+  font-size: 12px;
+  flex: 1;
+}
+
+.submitBtn {
+  grid-column: 1 / -1;
+  padding: 12px 24px;
+  background-color: #4ecdc4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #3bb8ae;
+  transform: translateY(-2px);
+}
+
+/* Collections Grid */
+.collectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.collectionCard {
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1f2e 0%, #252a3a 100%);
+  border-radius: 12px;
+  border: 1px solid #2a2f3e;
+  transition: all 0.3s ease;
+}
+
+.collectionCard:hover {
+  transform: translateY(-4px);
+  border-color: #ff6b6b;
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  color: #ff6b6b;
+  font-size: 16px;
+  flex: 1;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.editBtn {
+  background-color: #45b7d1;
+}
+
+.editBtn:hover {
+  background-color: #3a9fb6;
+}
+
+.deleteBtn {
+  background-color: #ff6b6b;
+}
+
+.deleteBtn:hover {
+  background-color: #e63946;
+}
+
+.description {
+  margin: 0 0 12px 0;
+  color: #b0b0b0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2a2f3e;
+  font-size: 12px;
+  color: #8a8f9e;
+}
+
+.moviePreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.movieTag {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #2a2f3e;
+  border-radius: 4px;
+  color: #b0b0b0;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.moreTag {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #ff6b6b;
+  border-radius: 4px;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8a8f9e;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .formContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .collectionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .movieGrid {
+    grid-template-columns: 1fr;
+  }
+}
