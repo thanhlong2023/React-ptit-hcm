@@ -7,7 +7,7 @@ import {
   getAuthToken,
   removeAuthToken,
   getStoredUserData,
-} from "../../services/authService"; 
+} from "../../services/authService";
 
 export default function Header() {
   // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
@@ -55,7 +55,7 @@ export default function Header() {
     navigate("/");
   };
 
-  // Logic đóng menu nếu click ra ngoài 
+  // Logic đóng menu nếu click ra ngoài
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       const authContainer = document.querySelector(
