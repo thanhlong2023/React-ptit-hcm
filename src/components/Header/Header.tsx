@@ -2,10 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
+import { useTheme } from "../Theme";
 
 export default function Header() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => {
@@ -60,6 +63,12 @@ export default function Header() {
             </div>
           </div>
         </nav>
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800"
+        >
+          {isDark ? "☀️" : "🌙"}
+        </button>
       </div>
     </header>
   );

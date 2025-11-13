@@ -5,10 +5,11 @@ import MovieDetailPage from "./pages/MovieDetailPage";
 import Home from "./pages/Home";
 import TVSeriesPage from "./pages/TVSeriesPage";
 import MoviesPage from "./pages/moviesPage";
+import { ThemeProvider } from "./components/Theme";
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,7 +17,7 @@ function App() {
         <Route path="/tv-series" element={<TVSeriesPage />} />
         <Route path="/movies" element={<MoviesPage />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 
