@@ -192,6 +192,99 @@
   width: 100%;
 }
 
+
+/* DROPDOWN/PROFILE STYLES */
+
+.authDropdownContainer {
+    /* relative để menu con định vị tuyệt đối so với container này */
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 50; /* z-index cao để menu không bị chèn bởi các phần tử khác */
+}
+
+.profileButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffd54f; /* Màu vàng, tương ứng với logo */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    padding: 0;
+}
+
+.profileButton:hover {
+    box-shadow: 0 0 0 4px rgba(255, 213, 79, 0.3);
+}
+
+.profileButton svg {
+    color: #1b1f2f; /* Màu icon User bên trong */
+}
+
+.profileMenu {
+    position: absolute;
+    /* Định vị menu ở góc trên bên phải */
+    top: 110%; 
+    right: 0; 
+    width: 200px;
+    background-color: #2c3241; /* Nền tối của menu */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profileInfo {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+.userName {
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.menuItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.menuItem {
+    /* Style chung cho NavLink (Yêu thích) và Button (Thoát) */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    color: #d5d5d5;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%; /* Đảm bảo nút/link chiếm toàn bộ chiều rộng */
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+    background-color: #3a4354; /* Màu xám đậm hơn khi hover */
+    color: #fff;
+}
+
+.menuItem svg {
+    width: 18px;
+    height: 18px;
+    color: inherit; /* Kế thừa màu từ .menuItem */
+}
+
+
+
 /* Responsive */
 @media (max-width: 1080px) {
   .header {

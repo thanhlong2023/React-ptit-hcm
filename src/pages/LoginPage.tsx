@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
-import { login, saveAuthToken } from '../services/authService'; 
+import { login, saveAuthToken, saveUserData } from '../services/authService'; 
 import './Auth.css'; 
 
 function LoginForm() {
@@ -28,7 +28,7 @@ function LoginForm() {
         
         // Lưu token giả vào Local Storage
         saveAuthToken(response.token); 
-        
+        saveUserData(response.user);
         console.log('Đăng nhập thành công, người dùng:', response.user);
         
         // Điều hướng về trang chủ
