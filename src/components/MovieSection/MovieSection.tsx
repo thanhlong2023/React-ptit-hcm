@@ -3,6 +3,7 @@ import styles from "./MovieSection.module.css";
 import MovieCard from "./MovieCard";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Movie {
   id: number;
@@ -22,6 +23,7 @@ export default function MovieSection({ title, apiUrl }: MovieSectionProps) {
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -61,6 +63,10 @@ export default function MovieSection({ title, apiUrl }: MovieSectionProps) {
     el.scrollTo({ left: target, behavior: "smooth" });
   }, []);
 
+  const handleViewAll = () => {
+    navigate("/view-all", { state: { title, apiUrl } });
+  };
+
   if (movies.length === 0) {
     return (
       <div className={styles.section}>
@@ -86,7 +92,7 @@ export default function MovieSection({ title, apiUrl }: MovieSectionProps) {
     <div className={styles.section}>
       <div className={styles.header}>
         <h2>{title}</h2>
-        <button className={styles.viewAll}>
+        <button className={styles.viewAll} onClick={handleViewAll}>
           Xem toàn bộ <ChevronRight size={18} />
         </button>
       </div>
@@ -121,3 +127,4 @@ export default function MovieSection({ title, apiUrl }: MovieSectionProps) {
     </div>
   );
 }
+

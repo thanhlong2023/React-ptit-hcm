@@ -12,10 +12,12 @@ import {
 interface MovieCardProps {
   movie: {
     id: number;
-    title: string;
+    title?: string; // For movies
+    name?: string; // For TV shows
     poster_path: string;
     vote_average: number;
-    release_date: string;
+    release_date?: string; // For movies
+    first_air_date?: string; // For TV shows
   };
   // NEW PROP: Hàm callback cho trang Favorites
   onFavoriteRemoved?: (movieId: number) => void;
@@ -27,7 +29,9 @@ export default function MovieCard({
 }: MovieCardProps) {
   // NHẬN PROP MỚI
   const navigate = useNavigate();
-  const goDetail = () => navigate(`/movie/${movie.id}`);
+  // Navigate to movie or tv detail page based on presence of title/name
+  const detailPath = movie.title ? `/movie/${movie.id}` : `/tv/${movie.id}`;
+  const goDetail = () => navigate(detailPath);
 
   const currentUserId = getCurrentUserId();
 
@@ -73,6 +77,9 @@ export default function MovieCard({
     }
   };
 
+  const title = movie.title || movie.name;
+  const releaseYear = (movie.release_date || movie.first_air_date)?.split("-")[0] || "N/A";
+
   return (
     <div
       className={styles.card}
@@ -105,18 +112,18 @@ export default function MovieCard({
               ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
               : "/no-poster.png"
           }
-          alt={movie.title}
+          alt={title}
           loading="lazy"
         />
       </div>
       <div className={styles.info}>
-        <p className={styles.title}>{movie.title}</p>
+        <p className={styles.title}>{title}</p>
         <div className={styles.meta}>
           <span className={styles.rating}>
             <Star size={14} /> {movie.vote_average.toFixed(1)}
           </span>
           <span className={styles.year}>
-            {movie.release_date?.split("-")[0] || "N/A"}
+            {releaseYear}
           </span>
         </div>
       </div>

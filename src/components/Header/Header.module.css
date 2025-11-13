@@ -5,22 +5,19 @@
   right: 0;
   height: 64px;
   z-index: 40;
-  /* background: linear-gradient(
-    to bottom,
-    rgba(10, 12, 18, 0.92),
-    rgba(10, 12, 18, 0.78) 60%,
-    rgba(10, 12, 18, 0)
-  ); */
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: background-color 0.35s ease, backdrop-filter 0.35s ease;
+  /* Start mostly transparent */
+  background-color: transparent;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  border-bottom: 1px solid transparent; /* Start with transparent border */
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
   font-family: system-ui, "Poppins", sans-serif;
 }
 .solid {
-  background-color: #1b1f2f;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
+  background-color: var(--header-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
 }
 .inner {
   max-width: 1480px;
@@ -30,7 +27,6 @@
   align-items: center;
   gap: 1.2rem;
   padding: 0 1.75rem;
-  justify-content: space-between; 
 }
 .logo {
   display: flex;
@@ -70,7 +66,6 @@
 
 .searchWrap {
   flex: 0 0 300px;
-  margin-right: 20px; /* mới */
 }
 
 .nav {
@@ -135,6 +130,17 @@
   background: #1f2732;
   color: #fff;
 }
+.dropdownCategoryTitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  padding: 0.45rem 0.6rem 0.2rem;
+  margin-top: 0.5rem;
+}
+.dropdownCategoryTitle:first-of-type {
+  margin-top: 0;
+}
 .newBadge {
   background: #ffe07a;
   color: #111;
@@ -148,41 +154,41 @@
 /* login  */
 
 .auth {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .loginLink {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 12px;
-    margin-right: 10px;
-    transition: color 0.2s;
-    border: 2px solid orange;
-    border-radius: 50px;
-    background: none; 
-    font: inherit; 
-    cursor: pointer; 
-  }
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 8px 12px;
+  transition: color 0.2s;
+  border: 2px solid var(--accent-color);
+  border-radius: 50px;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
 
 .loginLink:hover {
-    color: orange;
+  color: var(--accent-color);
 }
 
 .signupButton {
-    /* Nút Đăng ký nổi bật */
-    background-color: #e50914; /* Màu đỏ */
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-    border: 1px solid #e50914;
+  /* Nút Đăng ký nổi bật */
+  background-color: #e50914; /* Màu đỏ */
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  border: 1px solid #e50914;
 }
 
 .signupButton:hover {
-    background-color: #ff3847;
+  background-color: #ff3847;
 }
 
 /* login  */
@@ -192,98 +198,127 @@
   width: 100%;
 }
 
-
 /* DROPDOWN/PROFILE STYLES */
 
 .authDropdownContainer {
-    /* relative để menu con định vị tuyệt đối so với container này */
-    position: relative;
-    display: flex;
-    align-items: center;
-    z-index: 50; /* z-index cao để menu không bị chèn bởi các phần tử khác */
+  /* relative để menu con định vị tuyệt đối so với container này */
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 50; /* z-index cao để menu không bị chèn bởi các phần tử khác */
 }
 
 .profileButton {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ffd54f; /* Màu vàng, tương ứng với logo */
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-    padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  padding: 0;
 }
 
 .profileButton:hover {
-    box-shadow: 0 0 0 4px rgba(255, 213, 79, 0.3);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 30%, transparent);
 }
 
 .profileButton svg {
-    color: #1b1f2f; /* Màu icon User bên trong */
+  color: var(--bg-primary);
 }
 
 .profileMenu {
-    position: absolute;
-    /* Định vị menu ở góc trên bên phải */
-    top: 110%; 
-    right: 0; 
-    width: 200px;
-    background-color: #2c3241; /* Nền tối của menu */
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    padding: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  position: absolute;
+  /* Định vị menu ở góc trên bên phải */
+  top: 110%;
+  right: 0;
+  width: 200px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: 10px 0;
+  border: 1px solid var(--border-color);
 }
 
 .profileInfo {
-    padding: 10px 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 10px;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 10px;
 }
 
 .userName {
-    font-weight: 600;
-    color: #fff;
-    margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .menuItems {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .menuItem {
-    /* Style chung cho NavLink (Yêu thích) và Button (Thoát) */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    color: #d5d5d5;
-    text-decoration: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 100%; /* Đảm bảo nút/link chiếm toàn bộ chiều rộng */
-    text-align: left;
-    transition: background-color 0.2s;
+  /* Style chung cho NavLink (Yêu thích) và Button (Thoát) */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%; /* Đảm bảo nút/link chiếm toàn bộ chiều rộng */
+  text-align: left;
+  transition: background-color 0.2s;
 }
 
 .menuItem:hover {
-    background-color: #3a4354; /* Màu xám đậm hơn khi hover */
-    color: #fff;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .menuItem svg {
-    width: 18px;
-    height: 18px;
-    color: inherit; /* Kế thừa màu từ .menuItem */
+  width: 18px;
+  height: 18px;
+  color: inherit; /* Kế thừa màu từ .menuItem */
 }
 
+.navWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.themeToggleButton {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.themeToggleButton:hover {
+  background-color: var(--border-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 20%, transparent);
+}
 
 /* Responsive */
 @media (max-width: 1080px) {

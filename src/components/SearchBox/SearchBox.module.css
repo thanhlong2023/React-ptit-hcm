@@ -8,10 +8,15 @@
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #444;
-  background: #111;
-  color: #fff;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--accent-color);
 }
 
 .dropdown {
@@ -19,12 +24,13 @@
   top: 110%;
   left: 0;
   width: 100%;
-  background: #1c1c1c;
-  border: 1px solid #333;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   max-height: 400px;
   overflow-y: auto;
   z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .item {
@@ -37,7 +43,7 @@
 }
 
 .item:hover {
-  background: #292929;
+  background: var(--bg-secondary);
 }
 
 .poster {
@@ -48,6 +54,6 @@
 }
 
 .title {
-  color: #fff;
+  color: var(--text-primary);
   font-size: 0.95rem;
 }
