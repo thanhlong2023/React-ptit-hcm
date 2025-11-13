@@ -5,11 +5,16 @@
   justify-content: space-between;
   gap: 16px;
   padding: 20px 24px;
-  background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   flex-wrap: nowrap;
+<<<<<<< HEAD
   margin-left: 10%;
+=======
+  margin: 0 auto;
+>>>>>>> origin/main
   margin-top: 40px;
   width: 90%;
   max-width: 1200px;
@@ -28,31 +33,31 @@
 .label {
   font-size: 13px;
   font-weight: 600;
-  color: #b0b0b0;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
 }
 
 .filterGroup:hover .label {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 /* Select Dropdown */
 .select {
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
   padding: 10px 12px;
-  border: 2px solid #3a3a3a;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   width: 100%;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 8px center;
   background-size: 20px;
@@ -60,38 +65,25 @@
 }
 
 .select:hover {
-  border-color: #ff6b6b;
-  background-color: #242424;
-  box-shadow: 0 0 12px rgba(255, 107, 107, 0.15);
+  border-color: var(--accent-color);
+  background-color: var(--bg-secondary);
 }
 
 .select:focus {
-  border-color: #ff6b6b;
-  background-color: #2a2a2a;
-  box-shadow: 0 0 20px rgba(255, 107, 107, 0.25), inset 0 0 8px rgba(255, 107, 107, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 20%, transparent);
 }
 
 .select option {
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 8px 12px;
-}
-
-.select option:hover {
-  background-color: #ff6b6b;
-  color: #ffffff;
-}
-
-.select option:checked {
-  background: linear-gradient(#ff6b6b, #ff6b6b);
-  background-color: #ff6b6b;
-  color: #ffffff;
 }
 
 /* Button Styling */
 .button {
   padding: 10px 28px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #e63946 100%);
+  background: var(--accent-color);
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
@@ -101,20 +93,20 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-color) 30%, transparent);
   flex-shrink: 0;
   white-space: nowrap;
 }
 
 .button:hover {
-  background: linear-gradient(135deg, #ff8282 0%, #f73e50 100%);
-  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
+  background: color-mix(in srgb, var(--accent-color) 85%, black);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent-color) 40%, transparent);
   transform: translateY(-2px);
 }
 
 .button:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-color) 30%, transparent);
 }
 
 /* Responsive Design */

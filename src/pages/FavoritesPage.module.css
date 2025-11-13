@@ -1,0 +1,77 @@
+/* src/pages/FavoritesPage.module.css */
+
+.favoritesRoot {
+  min-height: 100vh;
+  padding-top: 84px; /* Khoảng đệm dưới Header */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-width: 1480px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ff3847;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.moviesGrid {
+  display: grid;
+  /* Lưới đáp ứng: Hiển thị 5-6 cột trên màn hình lớn */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  gap: 24px;
+  padding-bottom: 40px;
+}
+
+/* Style cho trạng thái trống */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.emptyState h2 {
+    color: #ffd54f;
+    margin-bottom: 1rem;
+}
+
+.emptyState p {
+    color: #ccc;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.backButton {
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.backButton:hover {
+    background-color: #ff3847;
+}
+
+/* Style cho hộp lỗi */
+.errorBox {
+    background: #4a2121;
+    border-left: 5px solid #ff3847;
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

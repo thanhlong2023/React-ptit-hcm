@@ -2,7 +2,14 @@
   margin: 2rem auto;
   width: 90%;
   max-width: 1200px;
-  color: white;
+  color: var(--text-primary);
+  background-color: var(--bg-primary); /* Default background for light mode */
+  border-radius: 1rem; /* Add some rounding for visual appeal */
+  padding: 1.5rem; /* Add some padding */
+}
+
+html.dark .section {
+  background-color: var(--bg-secondary); /* Different background for dark mode */
 }
 
 .header {
@@ -15,12 +22,13 @@
 .header h2 {
   font-size: 1.4rem;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .viewAll {
   background: none;
   border: none;
-  color: #ffb92a;
+  color: var(--accent-color);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -80,15 +88,15 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+  border: 1px solid var(--border-color);
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--text-primary);
   cursor: pointer;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -96,7 +104,7 @@
   z-index: 2;
 }
 .navBtn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--bg-secondary);
 }
 .navBtn:disabled {
   opacity: 0.35;
@@ -132,12 +140,12 @@
 }
 .skelPoster,
 .skelBar {
-  background: #2c3241;
+  background: var(--card-bg);
   background-image: linear-gradient(
     90deg,
-    #2c3241 0%,
-    #3a4354 50%,
-    #2c3241 100%
+    var(--card-bg) 0%,
+    var(--bg-secondary) 50%,
+    var(--card-bg) 100%
   );
   background-size: 360px 100%;
   animation: msSimple 1.5s linear infinite;
@@ -169,12 +177,12 @@
 .skelCard,
 .skelLine,
 .skelMini {
-  background: #2b3142;
+  background: var(--card-bg);
   background-image: linear-gradient(
     90deg,
-    #2b3142 0%,
-    #3a4355 45%,
-    #2b3142 80%
+    var(--card-bg) 0%,
+    var(--bg-secondary) 45%,
+    var(--card-bg) 80%
   );
   background-size: 600px 100%;
   animation: msShimmer 1.6s linear infinite;
@@ -198,9 +206,9 @@
 }
 .errorBox {
   padding: 0.85rem 1.1rem;
-  background: #2d2530;
-  border: 1px solid #523a55;
+  background: color-mix(in srgb, var(--accent-color) 10%, var(--card-bg));
+  border: 1px solid color-mix(in srgb, var(--accent-color) 30%, var(--card-bg));
   border-radius: 10px;
   font-size: 0.95rem;
-  color: #ffb9c4;
+  color: var(--text-primary);
 }

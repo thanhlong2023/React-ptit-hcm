@@ -1,0 +1,96 @@
+.personPage {
+  padding: 8rem 4%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text-primary);
+}
+
+.personHeader {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.profileImage {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.personInfo {
+  flex: 1;
+}
+
+.personName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.department,
+.detailItem {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.department span,
+.detailItem span {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.biography {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Add scroll if needed */
+  padding-right: 1rem; /* For scrollbar spacing */
+  margin-top: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5rem;
+}
+
+.noMovies {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .personHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profileImage {
+    width: 150px;
+    height: 225px;
+  }
+
+  .personName {
+    font-size: 2rem;
+  }
+
+  .biography {
+    padding-right: 0;
+  }
+}

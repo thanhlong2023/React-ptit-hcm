@@ -1,5 +1,6 @@
 .card {
-  background: #1b1b1b;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 0.8rem;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -8,13 +9,14 @@
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .imageBox {
   width: 100%;
   aspect-ratio: 2 / 3;
   overflow: hidden;
+  position: relative; /* Đặt ngữ cảnh cho icon tuyệt đối */
 }
 
 .imageBox img {
@@ -36,7 +38,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   margin-bottom: 0.3rem;
-  color: #fff;
+  color: var(--text-primary);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -47,16 +49,67 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
-  opacity: 0.85;
+  color: var(--text-secondary);
 }
 
 .rating {
   display: flex;
   align-items: center;
   gap: 3px;
-  color: #ffb92a;
+  color: #ffb92a; /* Keep rating color consistent */
 }
 
 .year {
-  color: #ccc;
+  color: var(--text-secondary);
+}
+
+/* ==== STYLE CHO NÚT YÊU THÍCH (FAVORITE TOGGLE) ==== */
+.favoriteToggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--bg-secondary) 75%, transparent);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  cursor: pointer;
+  line-height: 1;
+  transition: background-color 0.2s, opacity 0.2s, visibility 0.2s; /* visibility cho hiệu ứng mượt hơn */
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+
+  /* Mặc định ẩn */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Hiện ra khi hover lên .card */
+.card:hover .favoriteToggle {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Luôn hiển thị và có màu đỏ khi đã được yêu thích  */
+.favoriteToggle.isFavorited {
+  opacity: 1;
+  visibility: visible;
+}
+
+.favoriteToggle:hover {
+  background-color: color-mix(in srgb, var(--bg-secondary) 90%, transparent);
+}
+
+.heartIcon {
+  width: 20px;
+  height: 20px;
+  transition: color 0.2s, fill 0.2s;
+  color: var(--text-primary);
+}
+
+/* Trạng thái khi phim đã được thêm vào yêu thích */
+.heartIcon.active {
+  color: #ff3847;
+  fill: #ff3847;
 }
