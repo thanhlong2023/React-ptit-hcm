@@ -199,6 +199,20 @@
   background-color: #e63946;
 }
 
+.tabBtn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabBtn:hover {
+  opacity: 0.9;
+}
+
 .description {
   margin: 0 0 12px 0;
   color: #b0b0b0;
