@@ -8,6 +8,10 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const location = useLocation();
+  const logout = () => {
+    localStorage.removeItem('userData');
+    window.location.href = '/login';
+  };
 
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: '📊' },
@@ -44,7 +48,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           ))}
         </nav>
 
-        <div className={styles.userInfo}>
+        <div className={styles.userInfo} onClick={logout}>
           <p>👤 Admin</p>
           <button className={styles.logoutBtn}>Đăng xuất</button>
         </div>
