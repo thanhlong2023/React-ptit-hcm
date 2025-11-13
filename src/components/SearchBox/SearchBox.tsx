@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import styles from "./SearchBox.module.css";
@@ -17,6 +17,27 @@ export default function SearchBox() {
   const [results, setResults] = useState<Movie[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+
+  // Effect để xử lý click ngoài component
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchBoxRef.current &&
+        !searchBoxRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
 
   // Fetch autocomplete results
   useEffect(() => {
@@ -30,7 +51,7 @@ export default function SearchBox() {
       try {
         const apiKey = import.meta.env.VITE_TMDB_API_KEY;
         const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+          `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${encodeURIComponent(
             query
           )}&language=vi-VN`
         );
@@ -38,7 +59,7 @@ export default function SearchBox() {
         setResults(data.results?.slice(0, 6) || []); // Chỉ lấy 6 kết quả
         setShowDropdown(true);
       } catch (err) {
-        console.error("Error fetching movies:", err);
+        console.error("Error fetching multi-search:", err);
       }
     }, 300); // Giảm debounce xuống 300ms
 

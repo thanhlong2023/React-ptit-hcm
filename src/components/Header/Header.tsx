@@ -1,7 +1,14 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
+import { Heart, LogOut, User, Sun, Moon } from "lucide-react";
+import {
+  getAuthToken,
+  removeAuthToken,
+  getStoredUserData,
+} from "../../services/authService";
+import { useTheme } from "../Theme";
 
 interface Genre {
   id: number;
@@ -9,10 +16,20 @@ interface Genre {
 }
 
 export default function Header() {
+  // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [genres, setGenres] = useState<Genre[]>([]);
 
+  // State để theo dõi trạng thái đăng nhập
+  const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthToken());
+  // Quản lý tên người dùng
+  const [userName, setUserName] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const authPaths = ["/login", "/signup"];
+
+  // Hook xử lý cuộn trang để đổi màu Header
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -97,8 +114,23 @@ export default function Header() {
               <button onClick={() => handleCountryClick("TH")}>Thái Lan</button>
               <button onClick={() => handleCountryClick("GB")}>Anh</button>
             </div>
+          </nav>
+
+          <div className={styles.actions}>
+            {AuthButtons}
+            <button
+              onClick={toggleTheme}
+              className={styles.themeToggleButton}
+              aria-label={isDark ? "Activate light mode" : "Activate dark mode"}
+            >
+              {isDark ? (
+                <Sun size={20} strokeWidth={2.5} />
+              ) : (
+                <Moon size={20} strokeWidth={2.5} />
+              )}
+            </button>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );

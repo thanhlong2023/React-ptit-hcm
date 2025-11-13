@@ -4,3 +4,43 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f0;
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --card-bg: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --accent-color: #e50914;
+  --border-color: #e0e0e0;
+}
+
+html.dark {
+  --bg-primary: #141414;
+  --bg-secondary: #222222;
+  --header-bg: #141414;
+  --card-bg: #181818;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-color: #e50914;
+  --border-color: #2f2f2f;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* General styles for components to use variables */
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.button-primary {
+  background-color: var(--accent-color);
+  color: white;
+}

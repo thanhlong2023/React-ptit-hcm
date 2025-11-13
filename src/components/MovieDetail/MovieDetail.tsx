@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
-import { Calendar, Film, Clapperboard, AlertCircle } from "lucide-react";
+import { CalendarDays, Clock, Tags, AlertCircle } from "lucide-react";
 
 interface MovieDetailProps {
   movieId: number;
@@ -42,6 +43,7 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
   const [cast, setCast] = useState<Cast[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -155,15 +157,15 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
             <div className={styles.icons}>
               {genreNames && (
                 <span>
-                  <Film size={18} /> {genreNames}
+                  <Tags size={18} /> {genreNames}
                 </span>
               )}
               <span>
-                <Calendar size={18} /> {movie.release_date}
+                <CalendarDays size={18} /> {movie.release_date}
               </span>
               {movie.runtime && (
                 <span>
-                  <Clapperboard size={18} /> {movie.runtime} phút
+                  <Clock size={18} /> {movie.runtime} phút
                 </span>
               )}
             </div>
@@ -197,7 +199,16 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
           <h3 className={styles.sectionHeading}>🎭 Diễn viên</h3>
           <div className={styles.castGrid}>
             {cast.map((actor) => (
-              <div key={actor.id} className={styles.castCard}>
+              <div
+                key={actor.id}
+                className={styles.castCard}
+                onClick={() => navigate(`/person/${actor.id}`)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && navigate(`/person/${actor.id}`)
+                }
+              >
                 <div className={styles.castImgWrap}>
                   <img
                     src={
