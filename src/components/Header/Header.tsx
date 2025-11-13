@@ -37,10 +37,10 @@ export default function Header() {
           <SearchBox />
         </div>
         <nav className={styles.nav} aria-label="Chính">
-          <NavLink to="#" className={styles.link}>
+          <NavLink to="/movies" className={styles.link}>
             Phim Lẻ
           </NavLink>
-          <NavLink to="#" className={styles.link}>
+          <NavLink to="/tv-series" className={styles.link}>
             Phim Bộ
           </NavLink>
           <div className={styles.dropdown}>
