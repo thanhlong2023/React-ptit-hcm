@@ -7,9 +7,12 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FavoritesPage from "./pages/FavoritesPage";
 
-import TVSeriesPage from "./pages/TVSeriesPage";
-import MoviesPage from "./pages/moviesPage";
+import TVSeriesDetailPage from "./pages/TVSeriesDetailPage";
+import DiscoverPage from "./pages/DiscoverPage";
 import { ThemeProvider } from "./components/Theme";
+import ViewAllPage from "./pages/ViewAllPage";
+import SearchPage from "./pages/SearchPage";
+import PersonDetailPage from "./pages/PersonDetailPage";
 
 function App() {
   return (
@@ -18,13 +21,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id" element={<MovieDetailPage />} />
+        <Route path="/tv/:id" element={<TVSeriesDetailPage />} />
+        <Route path="/discover" element={<DiscoverPage />} />
+        <Route path="/view-all" element={<ViewAllPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/person/:personId" element={<PersonDetailPage />} />
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-
-        <Route path="/tv-series" element={<TVSeriesPage />} />
-        <Route path="/movies" element={<MoviesPage />} />
       </Routes>
     </ThemeProvider>
   );
