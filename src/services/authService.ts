@@ -125,7 +125,7 @@ export const register = async (userData: any): Promise<AuthResponse> => {
   }
 };
 
-// CẬP NHẬT LOGIC LOGIN: Lưu token và user data
+// LOGIC LOGIN: Lưu token và user data
 export const login = async (credentials: any): Promise<AuthResponse> => {
   try {
     // logic login
@@ -156,7 +156,7 @@ export const login = async (credentials: any): Promise<AuthResponse> => {
 
 // Lưu dữ liệu người dùng
 export const saveUserData = (user: any) => {
-  // Chỉ lưu các trường cần thiết (ví dụ: id, fullName, email)
+  // lưu các trường cần thiết (id, fullName, email)
   const dataToStore = {
     id: user.id,
     fullName: user.fullName,
