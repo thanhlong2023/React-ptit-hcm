@@ -14,8 +14,8 @@ interface FilterBoxProps {
 
 function FilterBox({ onFilter }: FilterBoxProps) {
   const [sortBy, setSortBy] = useState("Mới Lên Sóng");
-  const [type, setType] = useState("Tất cả");
-  const [genre, setGenre] = useState("Phim Lẻ");
+  const [type, setType] = useState("Phim lẻ");
+  const [genre, setGenre] = useState("Tất cả");
   const [country, setCountry] = useState("Tất cả");
   const [language, setLanguage] = useState("Tất cả");
   const [year, setYear] = useState("Tất cả");
@@ -47,15 +47,14 @@ function FilterBox({ onFilter }: FilterBoxProps) {
           </select>
         </div>
 
-        {/* Hình thức */}
+        {/* Loại */}
         <div className={styles.filterGroup}>
-          <label className={styles.label}>Hình thức</label>
+          <label className={styles.label}>Loại</label>
           <select
             className={styles.select}
             value={type}
             onChange={(e) => setType(e.target.value)}
           >
-            <option>Tất cả</option>
             <option>Phim lẻ</option>
             <option>Phim bộ</option>
           </select>
@@ -69,9 +68,9 @@ function FilterBox({ onFilter }: FilterBoxProps) {
             value={genre}
             onChange={(e) => setGenre(e.target.value)}
           >
-            <option>Phim Lẻ</option>
+            <option>Tất cả</option>
             <option>Hành động</option>
-            <option>Kinh dị</option>
+            <option>Tâm lý</option>
             <option>Hài hước</option>
           </select>
         </div>
@@ -85,10 +84,10 @@ function FilterBox({ onFilter }: FilterBoxProps) {
             onChange={(e) => setCountry(e.target.value)}
           >
             <option>Tất cả</option>
-            <option>Việt Nam</option>
-            <option>Hàn Quốc</option>
             <option>Mỹ</option>
-            <option>Nhật Bản</option>
+            <option>Nhật</option>
+            <option>Hàn Quốc</option>
+            <option>Việt Nam</option>
           </select>
         </div>
 

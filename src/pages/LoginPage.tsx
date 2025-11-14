@@ -31,8 +31,12 @@ function LoginForm() {
         saveUserData(response.user);
         console.log('Đăng nhập thành công, người dùng:', response.user);
         
-        // Điều hướng về trang chủ
-        navigate('/'); 
+        // Điều hướng: nếu admin thì vào /admin, còn không thì về trang chủ
+        if (response.user.email === 'admin@gmail.com') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       } else {
         // response.message được trả về từ service nếu thất bại
         setError(response.message || 'Đăng nhập thất bại.');

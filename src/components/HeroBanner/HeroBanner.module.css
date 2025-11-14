@@ -4,8 +4,9 @@
   height: 100vh;
   max-height: 780px;
   overflow: hidden;
-  color: white;
+  color: #fff; /* Default text color to white */
   font-family: "Poppins", sans-serif;
+  background-color: var(--bg-secondary);
 }
 
 /* Nền mờ */
@@ -16,6 +17,7 @@
   position: absolute;
   z-index: 0;
   transition: opacity 1s ease-in-out;
+  opacity: 1; /* Always full opacity */
 }
 
 /* Fade animation for changing background */
@@ -26,7 +28,6 @@
   }
   100% {
     opacity: 1;
-    transform: scale(1);
   }
 }
 .fadeImage {
@@ -54,7 +55,8 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+  /* Consistent dark gradient for all themes to ensure text readability */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 20%, transparent 80%);
   z-index: 1;
 }
 
@@ -64,6 +66,7 @@
   left: 6%;
   z-index: 2;
   max-width: 500px;
+  color: #f1f1f1; /* Always light text */
 }
 
 .content h1 {
@@ -71,6 +74,8 @@
   font-weight: 700;
   margin: 0;
   line-height: 1.3;
+  color: #ffffff; /* Always white */
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
 .content p {
@@ -79,13 +84,14 @@
 
 .desc {
   margin-top: 1rem;
-  color: #ddd;
+  color: #e5e5e5; /* Always light gray */
   line-height: 1.4;
   font-size: 0.95rem;
 }
 
 .play {
-  background: #f1c40f;
+  background: var(--accent-color);
+  color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 50px;
@@ -147,9 +153,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  border: 2px solid #fff;
+  border: 2px solid var(--accent-color);
   border-radius: 10px;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent-color) 80%, transparent);
   pointer-events: none;
 }
 
@@ -166,12 +172,12 @@
 .skelLine,
 .skelThumb,
 .skelLineShort {
-  background: #2a2f3c;
+  background: var(--card-bg);
   background-image: linear-gradient(
     90deg,
-    #2a2f3c 0%,
-    #3a4252 50%,
-    #2a2f3c 100%
+    var(--card-bg) 0%,
+    var(--bg-secondary) 50%,
+    var(--card-bg) 100%
   );
   background-size: 400px 100%;
   animation: simpleShimmer 1.6s linear infinite;
@@ -229,12 +235,12 @@
 .skelLine,
 .skelButton,
 .skelThumb {
-  background: #202633;
+  background: var(--card-bg);
   background-image: linear-gradient(
     90deg,
-    #202633 0%,
-    #2e3747 40%,
-    #202633 80%
+    var(--card-bg) 0%,
+    var(--bg-secondary) 40%,
+    var(--card-bg) 80%
   );
   background-size: 800px 100%;
   animation: hbShimmer 2s linear infinite;
@@ -387,4 +393,17 @@
     width: 68px;
     height: 38px;
   }
+}
+
+/* Dark mode overrides for HeroBanner */
+html.dark .poster {
+  background-color: var(--bg-secondary);
+}
+
+html.dark .background {
+  opacity: 1;
+}
+
+html.dark .overlay {
+  background: linear-gradient(to right, #111827 0%, transparent 100%);
 }
