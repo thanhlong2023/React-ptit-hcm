@@ -163,10 +163,11 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  
 }
 
 .loginLink {
-  color: var(--text-primary);
+
   text-decoration: none;
   padding: 8px 12px;
   transition: color 0.2s;
@@ -218,7 +219,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--accent-color);
+  background-color: var(--bg-yellow);
   border: none;
   display: flex;
   align-items: center;
@@ -229,7 +230,7 @@
 }
 
 .profileButton:hover {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 30%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bg-yellow) 30%, transparent);
 }
 
 .profileButton svg {

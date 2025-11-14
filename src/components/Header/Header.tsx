@@ -18,7 +18,7 @@ export default function Header() {
   const location = useLocation();
 
 
-   const { isDark, toggleTheme } = useTheme();
+  
   // State để theo dõi trạng thái đăng nhập
   const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthToken());
   // State quản lý tên người dùng
