@@ -50,9 +50,36 @@ export default function Header() {
     navigate(`/search?country=${country}`);
   };
 
+  // Buttons đăng nhập/đăng xuất (nếu bạn có logic này)
+  const AuthButtons = isAuthenticated ? (
+    <>
+      <button
+        className={styles.iconButton}
+        onClick={() => navigate("/favorites")}
+      >
+        <Heart size={20} />
+      </button>
+      <button
+        className={styles.iconButton}
+        onClick={() => {
+          removeAuthToken();
+          setIsAuthenticated(false);
+          navigate("/");
+        }}
+      >
+        <LogOut size={20} />
+      </button>
+    </>
+  ) : (
+    <button className={styles.loginButton} onClick={() => navigate("/login")}>
+      <User size={20} /> Đăng nhập
+    </button>
+  );
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.solid : ""}`}>
       <div className={styles.inner}>
+        {/* LOGO */}
         <div
           className={styles.logo}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -65,9 +92,13 @@ export default function Header() {
             <span className={styles.tagline}>Phim hay có PTITer</span>
           </div>
         </div>
+
+        {/* THANH TÌM KIẾM */}
         <div className={styles.searchWrap}>
           <SearchBox />
         </div>
+
+        {/* THANH ĐIỀU HƯỚNG */}
         <nav className={styles.nav} aria-label="Chính">
           <button
             className={styles.link}
@@ -81,6 +112,8 @@ export default function Header() {
           >
             Phim Bộ
           </button>
+
+          {/* MENU THỂ LOẠI */}
           <div className={styles.dropdown}>
             <button className={styles.dropBtn}>Thể loại ▾</button>
             <div className={styles.menu}>
@@ -94,6 +127,8 @@ export default function Header() {
               ))}
             </div>
           </div>
+
+          {/* MENU QUỐC GIA */}
           <div className={styles.dropdown}>
             <button className={styles.dropBtn}>Quốc gia ▾</button>
             <div className={styles.menu}>

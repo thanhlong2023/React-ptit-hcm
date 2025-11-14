@@ -1,0 +1,159 @@
+/* Admin Container */
+.adminContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #0f1419;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+  border-right: 2px solid #2a2f3e;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+  color: white;
+}
+
+.logo {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #2a2f3e;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #b0b0b0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.navItem:hover {
+  background-color: #2a2f3e;
+  color: #ffffff;
+}
+
+.navItem.active {
+  background-color: #ff6b6b;
+  color: #ffffff;
+  border-left-color: #ff6b6b;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.label {
+  font-weight: 500;
+}
+
+/* User Info */
+.userInfo {
+  padding-top: 20px;
+  border-top: 2px solid #2a2f3e;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.userInfo p {
+  margin: 0;
+  color: #b0b0b0;
+  font-size: 14px;
+}
+
+.logoutBtn {
+  padding: 10px 16px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #e63946;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #0f1419;
+  color: white;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar,
+.mainContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.mainContent::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.mainContent::-webkit-scrollbar-thumb {
+  background: #2a2f3e;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.mainContent::-webkit-scrollbar-thumb:hover {
+  background: #3a3f4e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .adminContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #2a2f3e;
+    padding: 15px;
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .navItem {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mainContent {
+    padding: 20px;
+  }
+}
