@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import MovieDetailPage from "./pages/MovieDetailPage";
 import Home from "./pages/Home";
 
-
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FavoritesPage from "./pages/FavoritesPage";
@@ -17,15 +16,16 @@ import SearchPage from "./pages/SearchPage";
 import PersonDetailPage from "./pages/PersonDetailPage";
 import AdminPage from "./pages/Admin/AdminPage";
 
-
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith("/admin");
+  const isAuthPath =
+    location.pathname === "/login" || location.pathname === "/signup";
 
   return (
     <>
-      {!isAdminPath && <Header />}
       <ThemeProvider>
+        {!isAdminPath && !isAuthPath && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<SearchPage />} />
@@ -41,7 +41,6 @@ function App() {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/admin/*" element={<AdminPage />} />
-
         </Routes>
       </ThemeProvider>
     </>

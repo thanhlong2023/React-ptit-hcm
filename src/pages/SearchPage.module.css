@@ -1,7 +1,8 @@
 .searchPage {
-  background: #0f0f0f;
+  background: var(--bg-primary);
   min-height: 100vh;
   padding-top: 100px; /* Space for fixed header */
+  transition: background-color 0.3s ease;
 }
 
 .container {
@@ -12,12 +13,12 @@
 
 .header {
   margin-bottom: 2rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
 }
 
 .title {
-  color: white;
+  color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
@@ -32,30 +33,31 @@
 
 /* Filter Section */
 .filterSection {
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  border: 1px solid #333;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .filterHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: white;
+  color: var(--text-primary);
   font-weight: 600;
   font-size: 1.1rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--border-color);
   cursor: pointer;
   transition: color 0.3s ease;
   user-select: none;
 }
 
 .filterHeader:hover {
-  color: #0066cc;
+  color: var(--accent-color);
 }
 
 .filterHeaderLeft {
@@ -106,7 +108,7 @@
 }
 
 .filterItem label {
-  color: #ccc;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -120,37 +122,37 @@
 .searchInput svg {
   position: absolute;
   left: 12px;
-  color: #888;
+  color: var(--text-secondary);
   z-index: 1;
 }
 
 .searchInput input {
   width: 100%;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-  border: 1px solid #444;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: #111;
-  color: white;
+  background: var(--card-bg);
+  color: var(--text-primary);
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
 
 .searchInput input:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
 }
 
 .searchInput input::placeholder {
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .filterItem select {
   padding: 0.75rem;
-  border: 1px solid #444;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: #111;
-  color: white;
+  background: var(--card-bg);
+  color: var(--text-primary);
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -158,13 +160,13 @@
 
 .filterItem select:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
 }
 
 .filterItem select option {
-  background: #222;
-  color: white;
+  background: var(--card-bg);
+  color: var(--text-primary);
   padding: 0.5rem;
 }
 
@@ -179,7 +181,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #0066cc, #0052a3);
+  background: var(--accent-color);
   color: white;
   border: none;
   border-radius: 8px;
@@ -188,19 +190,19 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
 }
 
 .applyBtn:hover {
-  background: linear-gradient(135deg, #0052a3, #003d7a);
+  background: #c20812;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
 }
 
 .clearBtn {
   background: transparent;
-  color: #ccc;
-  border: 1px solid #444;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
   font-size: 0.95rem;
@@ -209,9 +211,9 @@
 }
 
 .clearBtn:hover {
-  background: #333;
-  color: white;
-  border-color: #555;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
 }
 
 .resultInfo {
@@ -219,7 +221,7 @@
 }
 
 .resultInfo p {
-  color: #888;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   margin: 0;
 }
@@ -227,22 +229,26 @@
 .loading {
   text-align: center;
   padding: 4rem 2rem;
-  color: white;
+  color: var(--text-primary);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid white;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid var(--accent-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Movie Grid - giống RoPhim */
@@ -271,7 +277,8 @@
   aspect-ratio: 2/3; /* Standard movie poster ratio */
   overflow: hidden;
   border-radius: 8px;
-  background: #222;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
 .posterWrapper img {
@@ -335,7 +342,7 @@
 }
 
 .movieTitle h3 {
-  color: white;
+  color: var(--text-primary);
   font-size: 0.9rem;
   font-weight: 500;
   margin: 0;
@@ -358,9 +365,9 @@
 }
 
 .pageBtn {
-  background: #222;
-  color: #ccc;
-  border: 1px solid #444;
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
@@ -370,22 +377,22 @@
 }
 
 .pageBtn:hover:not(:disabled) {
-  background: #333;
-  color: white;
-  border-color: #555;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
 }
 
 .pageBtn:disabled {
-  background: #111;
-  color: #555;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   cursor: not-allowed;
-  border-color: #333;
+  border-color: var(--border-color);
 }
 
 .pageBtn.active {
-  background: #0066cc;
+  background: var(--accent-color);
   color: white;
-  border-color: #0066cc;
+  border-color: var(--accent-color);
 }
 
 .pageNumbers {
@@ -394,25 +401,29 @@
 }
 
 /* No Results */
-.noResults, .emptyState {
+.noResults,
+.emptyState {
   text-align: center;
   padding: 4rem 2rem;
-  color: #888;
+  color: var(--text-secondary);
 }
 
-.noResultsIcon, .emptyIcon {
+.noResultsIcon,
+.emptyIcon {
   font-size: 4rem;
   margin-bottom: 1rem;
 }
 
-.noResults h2, .emptyState h2 {
-  color: white;
+.noResults h2,
+.emptyState h2 {
+  color: var(--text-primary);
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
-.noResults p, .emptyState p {
+.noResults p,
+.emptyState p {
   font-size: 1rem;
   line-height: 1.5;
   max-width: 400px;
@@ -424,11 +435,11 @@
   .searchPage {
     padding-top: 80px;
   }
-  
+
   .container {
     padding: 1rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
   }
@@ -448,20 +459,21 @@
     gap: 0.75rem;
   }
 
-  .applyBtn, .clearBtn {
+  .applyBtn,
+  .clearBtn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .movieGrid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
   }
-  
+
   .movieTitle h3 {
     font-size: 0.8rem;
   }
-  
+
   .pagination {
     flex-wrap: wrap;
     gap: 0.25rem;
@@ -472,8 +484,9 @@
   .movieGrid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
-  
-  .rating, .year {
+
+  .rating,
+  .year {
     font-size: 0.7rem;
     padding: 0.2rem 0.4rem;
   }

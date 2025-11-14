@@ -1,7 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
-import { CalendarDays, Clock, Tags, AlertCircle } from "lucide-react";
+import { CalendarDays, Clock, Tags, AlertCircle, Heart, BookOpen, Users } from "lucide-react";
+import {
+  getAuthToken,
+  getCurrentUserId,
+  toggleFavorite,
+  getFavoriteIds,
+} from "../../services/authService";
 
 interface MovieDetailProps {
   movieId: number;
@@ -43,7 +49,9 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
   const [cast, setCast] = useState<Cast[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
+  const currentUserId = getCurrentUserId();
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -87,6 +95,40 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
       cancelled = true;
     };
   }, [movieId]);
+
+  // Check if movie is favorited
+  useEffect(() => {
+    if (!currentUserId) {
+      setIsFavorite(false);
+      return;
+    }
+
+    getFavoriteIds(currentUserId)
+      .then((favoriteIds) => {
+        setIsFavorite(favoriteIds.includes(movieId));
+      })
+      .catch((error) => {
+        console.error("Lỗi tải trạng thái yêu thích:", error);
+      });
+  }, [currentUserId, movieId]);
+
+  const handleFavoriteToggle = async () => {
+    if (!getAuthToken() || !currentUserId) {
+      navigate("/login?redirect=/");
+      return;
+    }
+
+    const newStatus = !isFavorite;
+    setIsFavorite(newStatus);
+
+    const success = await toggleFavorite(currentUserId, movieId, newStatus);
+
+    if (!success) {
+      // Nếu API thất bại, rollback
+      setIsFavorite(!newStatus);
+      console.error("Lỗi: Không thể cập nhật danh sách yêu thích trên DB.");
+    }
+  };
 
   const genreNames = useMemo(
     () => movie?.genres.map((g) => g.name).join(", ") || "",
@@ -169,6 +211,18 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
                 </span>
               )}
             </div>
+            <button
+              className={`${styles.favoriteBtn} ${isFavorite ? styles.active : ""}`}
+              onClick={handleFavoriteToggle}
+              title={isFavorite ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích"}
+            >
+              <Heart
+                size={20}
+                fill={isFavorite ? "#ff3847" : "none"}
+                color={isFavorite ? "#ff3847" : "currentColor"}
+              />
+              {isFavorite ? "Đã thích" : "Thêm vào yêu thích"}
+            </button>
           </div>
         </div>
       </section>
@@ -189,14 +243,18 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
 
       {/* ===== CONTENT ===== */}
       <section className={styles.content}>
-        <h3 className={styles.sectionHeading}>📘 Nội dung phim</h3>
+        <h3 className={styles.sectionHeading}>
+          <BookOpen size={20} /> Nội dung phim
+        </h3>
         <p className={styles.overview}>{movie.overview}</p>
       </section>
 
       {/* ===== CAST ===== */}
       {cast.length > 0 && (
         <section className={styles.castSection}>
-          <h3 className={styles.sectionHeading}>🎭 Diễn viên</h3>
+          <h3 className={styles.sectionHeading}>
+            <Users size={20} /> Diễn viên
+          </h3>
           <div className={styles.castGrid}>
             {cast.map((actor) => (
               <div

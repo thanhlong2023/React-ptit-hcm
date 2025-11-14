@@ -28,8 +28,19 @@ export default function Header() {
   const [userName, setUserName] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Lấy tên người dùng từ localStorage khi component mount
+  useEffect(() => {
+    if (isAuthenticated) {
+      const userData = localStorage.getItem("user_data")
+        ? JSON.parse(localStorage.getItem("user_data") || "{}")
+        : null;
+      if (userData?.fullName) {
+        setUserName(userData.fullName);
+      }
+    }
+  }, [isAuthenticated]);
+
   const { isDark, toggleTheme } = useTheme();
-  const authPaths = ["/login", "/signup"];
 
   // Hook xử lý cuộn trang để đổi màu Header
   useEffect(() => {
@@ -46,10 +57,12 @@ export default function Header() {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     if (!apiKey) return;
 
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`)
-      .then(res => res.json())
-      .then(data => setGenres(data.genres?.slice(0, 8) || []))
-      .catch(err => console.error("Error fetching genres:", err));
+    fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`
+    )
+      .then((res) => res.json())
+      .then((data) => setGenres(data.genres?.slice(0, 8) || []))
+      .catch((err) => console.error("Error fetching genres:", err));
   }, []);
 
   const navigator = () => navigate("/");
@@ -64,27 +77,55 @@ export default function Header() {
 
   // Buttons đăng nhập/đăng xuất (nếu bạn có logic này)
   const AuthButtons = isAuthenticated ? (
-    <>
+    <div className={styles.authDropdownContainer}>
       <button
-        className={styles.iconButton}
-        onClick={() => navigate("/favorites")}
+        className={styles.userButton}
+        onMouseEnter={() => setIsMenuOpen(true)}
+        onMouseLeave={() => setIsMenuOpen(false)}
+        title={userName}
       >
-        <Heart size={20} />
+        <User size={20} />
       </button>
-      <button
-        className={styles.iconButton}
-        onClick={() => {
-          removeAuthToken();
-          setIsAuthenticated(false);
-          navigate("/");
-        }}
-      >
-        <LogOut size={20} />
-      </button>
-    </>
+      {isMenuOpen && (
+        <div
+          className={styles.userDropdown}
+          onMouseEnter={() => setIsMenuOpen(true)}
+          onMouseLeave={() => setIsMenuOpen(false)}
+        >
+          <div className={styles.userInfo}>
+            <span className={styles.userNameText}>
+              {userName || "Người dùng"}
+            </span>
+          </div>
+          <button
+            className={styles.dropdownItem}
+            onClick={() => {
+              navigate("/favorites");
+              setIsMenuOpen(false);
+            }}
+          >
+            <Heart size={16} />
+            <span>Danh sách yêu thích</span>
+          </button>
+          <button
+            className={styles.dropdownItem}
+            onClick={() => {
+              removeAuthToken();
+              setUserName("");
+              setIsAuthenticated(false);
+              setIsMenuOpen(false);
+              navigate("/");
+            }}
+          >
+            <LogOut size={16} />
+            <span>Đăng xuất</span>
+          </button>
+        </div>
+      )}
+    </div>
   ) : (
     <button className={styles.loginButton} onClick={() => navigate("/login")}>
-      <User size={20} /> Đăng nhập
+      <User size={18} /> Đăng nhập
     </button>
   );
 
@@ -146,7 +187,9 @@ export default function Header() {
             <div className={styles.menu}>
               <button onClick={() => handleCountryClick("US")}>Mỹ</button>
               <button onClick={() => handleCountryClick("KR")}>Hàn Quốc</button>
-              <button onClick={() => handleCountryClick("CN")}>Trung Quốc</button>
+              <button onClick={() => handleCountryClick("CN")}>
+                Trung Quốc
+              </button>
               <button onClick={() => handleCountryClick("JP")}>Nhật Bản</button>
               <button onClick={() => handleCountryClick("TH")}>Thái Lan</button>
               <button onClick={() => handleCountryClick("GB")}>Anh</button>

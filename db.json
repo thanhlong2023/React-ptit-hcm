@@ -14,7 +14,20 @@
       "password": "12345678",
       "fullName": "bach",
       "createdAt": "2025-11-13T02:29:37.074Z",
-      "favorites": [615453, 980477]
+      "favorites": [
+        615453,
+        980477
+      ]
+    },
+    {
+      "id": "f8b2",
+      "email": "admin8888@gmail.com",
+      "password": "12345678",
+      "fullName": "admin8888",
+      "createdAt": "2025-11-14T02:31:59.045Z",
+      "favorites": [
+        1382406
+      ]
     }
   ]
 }

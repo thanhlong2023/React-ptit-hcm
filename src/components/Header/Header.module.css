@@ -10,7 +10,8 @@
   backdrop-filter: blur(0);
   -webkit-backdrop-filter: blur(0);
   border-bottom: 1px solid transparent; /* Start with transparent border */
-  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease,
+    border-color 0.35s ease;
   font-family: system-ui, "Poppins", sans-serif;
 }
 .solid {
@@ -25,8 +26,9 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  padding: 0 1.75rem;
+  justify-content: space-around;
+  gap: 1.5rem;
+  padding: 0 2rem;
 }
 .logo {
   display: flex;
@@ -55,13 +57,21 @@
 .brand {
   font-weight: 600;
   font-size: 1.05rem;
-  color: #fff;
+  color: #ffffff;
   letter-spacing: 0.5px;
+  transition: color 0.35s ease;
+}
+.header.solid .brand {
+  color: var(--text-primary);
 }
 .tagline {
   font-size: 0.65rem;
-  color: #d7d7d7;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 2px;
+  transition: color 0.35s ease;
+}
+.header.solid .tagline {
+  color: var(--text-secondary);
 }
 
 .searchWrap {
@@ -71,13 +81,17 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.5rem;
   font-size: 0.82rem;
   font-weight: 500;
-  color: #ddd;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.35s ease;
+}
+.header.solid .nav {
+  color: var(--text-secondary);
 }
 .link {
-  color: #d5d5d5;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   position: relative;
   background: none;
@@ -86,9 +100,16 @@
   font-family: inherit;
   cursor: pointer;
   padding: 0;
+  transition: color 0.3s ease;
 }
 .link:hover {
-  color: #fff;
+  color: #ffffff;
+}
+.header.solid .link {
+  color: var(--text-secondary);
+}
+.header.solid .link:hover {
+  color: var(--text-primary);
 }
 
 .dropdown {
@@ -97,13 +118,20 @@
 .dropBtn {
   background: none;
   border: none;
-  color: #d5d5d5;
+  color: rgba(255, 255, 255, 0.8);
   font: inherit;
   cursor: pointer;
   padding: 0;
+  transition: color 0.3s ease;
 }
 .dropBtn:hover {
-  color: #fff;
+  color: #ffffff;
+}
+.header.solid .dropBtn {
+  color: var(--text-secondary);
+}
+.header.solid .dropBtn:hover {
+  color: var(--text-primary);
 }
 .menu {
   display: none;
@@ -111,12 +139,14 @@
   top: 110%;
   left: 0;
   min-width: 160px;
-  background: #141821;
-  border: 1px solid #242b35;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.5rem 0.4rem;
-  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.15);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
 }
 .dropdown:hover .menu {
   display: grid;
@@ -128,13 +158,14 @@
   text-align: left;
   padding: 0.45rem 0.6rem;
   border-radius: 6px;
-  color: #d4d9e2;
+  color: var(--text-secondary);
   font-size: 0.75rem;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 .menu button:hover {
-  background: #1f2732;
-  color: #fff;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 .dropdownCategoryTitle {
   font-size: 0.65rem;
@@ -165,20 +196,27 @@
   gap: 0.75rem;
 }
 
-.loginLink {
-  color: var(--text-primary);
+.loginButton {
+  color: white;
   text-decoration: none;
-  padding: 8px 12px;
-  transition: color 0.2s;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
   border: 2px solid var(--accent-color);
-  border-radius: 50px;
-  background: none;
+  border-radius: 6px;
+  background: var(--accent-color);
   font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.loginLink:hover {
-  color: var(--accent-color);
+.loginButton:hover {
+  background: #c20812;
+  border-color: #c20812;
+  transform: translateY(-1px);
 }
 
 .signupButton {
@@ -207,91 +245,116 @@
 /* DROPDOWN/PROFILE STYLES */
 
 .authDropdownContainer {
-  /* relative để menu con định vị tuyệt đối so với container này */
   position: relative;
   display: flex;
   align-items: center;
-  z-index: 50; /* z-index cao để menu không bị chèn bởi các phần tử khác */
+  z-index: 50;
 }
 
-.profileButton {
+.userButton {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: var(--accent-color);
-  border: none;
+  border: 2px solid var(--accent-color);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: box-shadow 0.2s;
+  transition: all 0.2s ease;
+  color: white;
   padding: 0;
 }
 
-.profileButton:hover {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 30%, transparent);
+.userButton:hover {
+  background-color: #c20812;
+  border-color: #c20812;
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
 }
 
-.profileButton svg {
-  color: var(--bg-primary);
+.userButton svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
-.profileMenu {
+.userDropdown {
   position: absolute;
-  /* Định vị menu ở góc trên bên phải */
-  top: 110%;
+  top: calc(100% + 2px);
   right: 0;
-  width: 200px;
-  background-color: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  padding: 10px 0;
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  min-width: 200px;
+  overflow: visible;
+  animation: slideDown 0.2s ease;
 }
 
-.profileInfo {
-  padding: 10px 15px;
+.userDropdown::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -10px;
+  right: -10px;
+  height: 15px;
+  background: transparent;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.userInfo {
+  padding: 12px 15px;
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: 10px;
+  background: var(--bg-secondary);
 }
 
-.userName {
+.userNameText {
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0;
+  font-size: 0.9rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.menuItems {
-  display: flex;
-  flex-direction: column;
-}
-
-.menuItem {
-  /* Style chung cho NavLink (Yêu thích) và Button (Thoát) */
+.dropdownItem {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  text-align: left;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 15px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-  width: 100%; /* Đảm bảo nút/link chiếm toàn bộ chiều rộng */
-  text-align: left;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
-.menuItem:hover {
-  background-color: var(--bg-secondary);
+.dropdownItem:hover {
+  background: var(--bg-secondary);
   color: var(--text-primary);
 }
 
-.menuItem svg {
-  width: 18px;
-  height: 18px;
-  color: inherit; /* Kế thừa màu từ .menuItem */
+.dropdownItem svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: inherit;
 }
 
 .navWrapper {
@@ -304,7 +367,7 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .themeToggleButton {
