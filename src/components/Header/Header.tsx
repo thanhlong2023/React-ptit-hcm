@@ -1,14 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
-import { Heart, LogOut, User, Sun, Moon } from "lucide-react";
-import {
-  getAuthToken,
-  removeAuthToken,
-  getStoredUserData,
-} from "../../services/authService";
+import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../Theme";
 
 interface Genre {
@@ -19,17 +13,9 @@ interface Genre {
 export default function Header() {
   // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [genres, setGenres] = useState<Genre[]>([]);
-
-  // State để theo dõi trạng thái đăng nhập
-  const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthToken());
-  // Quản lý tên người dùng
-  const [userName, setUserName] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const { isDark, toggleTheme } = useTheme();
-  const authPaths = ["/login", "/signup"];
 
   // Hook xử lý cuộn trang để đổi màu Header
   useEffect(() => {
@@ -46,10 +32,12 @@ export default function Header() {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     if (!apiKey) return;
 
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`)
-      .then(res => res.json())
-      .then(data => setGenres(data.genres?.slice(0, 8) || []))
-      .catch(err => console.error("Error fetching genres:", err));
+    fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=vi-VN`
+    )
+      .then((res) => res.json())
+      .then((data) => setGenres(data.genres?.slice(0, 8) || []))
+      .catch((err) => console.error("Error fetching genres:", err));
   }, []);
 
   const navigator = () => navigate("/");
@@ -146,7 +134,9 @@ export default function Header() {
             <div className={styles.menu}>
               <button onClick={() => handleCountryClick("US")}>Mỹ</button>
               <button onClick={() => handleCountryClick("KR")}>Hàn Quốc</button>
-              <button onClick={() => handleCountryClick("CN")}>Trung Quốc</button>
+              <button onClick={() => handleCountryClick("CN")}>
+                Trung Quốc
+              </button>
               <button onClick={() => handleCountryClick("JP")}>Nhật Bản</button>
               <button onClick={() => handleCountryClick("TH")}>Thái Lan</button>
               <button onClick={() => handleCountryClick("GB")}>Anh</button>
@@ -154,9 +144,7 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* CÁC NÚT BÊN PHẢI */}
         <div className={styles.actions}>
-          {AuthButtons}
           <button
             onClick={toggleTheme}
             className={styles.themeToggleButton}
