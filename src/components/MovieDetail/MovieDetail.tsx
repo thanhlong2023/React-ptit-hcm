@@ -1,7 +1,15 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MovieDetail.module.css";
-import { CalendarDays, Clock, Tags, AlertCircle, Heart, BookOpen, Users } from "lucide-react";
+import {
+  CalendarDays,
+  Clock,
+  Tags,
+  AlertCircle,
+  Heart,
+  BookOpen,
+  Users,
+} from "lucide-react";
 import {
   getAuthToken,
   getCurrentUserId,
@@ -212,7 +220,9 @@ export default function MovieDetail({ movieId }: MovieDetailProps) {
               )}
             </div>
             <button
-              className={`${styles.favoriteBtn} ${isFavorite ? styles.active : ""}`}
+              className={`${styles.favoriteBtn} ${
+                isFavorite ? styles.active : ""
+              }`}
               onClick={handleFavoriteToggle}
               title={isFavorite ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích"}
             >
