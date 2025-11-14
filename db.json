@@ -14,7 +14,10 @@
       "password": "12345678",
       "fullName": "bach",
       "createdAt": "2025-11-13T02:29:37.074Z",
-      "favorites": [615453, 980477]
+      "favorites": [
+        615453,
+        980477
+      ]
     }
   ]
 }

@@ -12,7 +12,7 @@ import TVSeriesDetailPage from "./pages/TVSeriesDetailPage";
 import DiscoverPage from "./pages/DiscoverPage";
 import { ThemeProvider } from "./components/Theme";
 import ViewAllPage from "./pages/ViewAllPage";
-import SearchPage from "./pages/SearchPage";
+
 import PersonDetailPage from "./pages/PersonDetailPage";
 
 function App() {
