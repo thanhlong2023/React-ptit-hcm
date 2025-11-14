@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // <-- THÊM useLocation
+import { useEffect, useState } from "react"; // <-- THÊM useMemo
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Header.module.css";
 import { Heart, LogOut, User, Sun, Moon } from "lucide-react";
 import {
   getAuthToken,
   removeAuthToken,
-  getStoredUserData,
 } from "../../services/authService";
 import { useTheme } from "../Theme";
 
@@ -19,7 +17,9 @@ interface Genre {
 export default function Header() {
   // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
   const navigate = useNavigate();
+  const location = useLocation(); // <-- THÊM HOOK
   const [scrolled, setScrolled] = useState(false);
+// ... (các state khác) ...
   const [genres, setGenres] = useState<Genre[]>([]);
 
   // State để theo dõi trạng thái đăng nhập
@@ -27,6 +27,8 @@ export default function Header() {
   // Quản lý tên người dùng
   const [userName, setUserName] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+// ... (useEffect lấy tên người dùng, useTheme, Hook xử lý cuộn trang) ...
 
   // Lấy tên người dùng từ localStorage khi component mount
   useEffect(() => {
@@ -65,6 +67,18 @@ export default function Header() {
       .catch((err) => console.error("Error fetching genres:", err));
   }, []);
 
+  // ==========================================================
+  // LOGIC MỚI: XÁC ĐỊNH TRẠNG THÁI HEADER DỰA TRÊN ĐƯỜNG DẪN
+  // ==========================================================
+
+  const isHomePage = location.pathname === "/";
+
+  // Header luôn là solid nếu không phải trang chủ HOẶC là trang chủ nhưng đã cuộn
+  const isSolid = !isHomePage || scrolled; 
+
+  // Chỉ áp dụng chữ trắng khi là trang chủ VÀ chưa cuộn
+  const isWhiteText = isHomePage && !scrolled; 
+  
   const navigator = () => navigate("/");
 
   const handleGenreClick = (genreId: number) => {
@@ -75,7 +89,7 @@ export default function Header() {
     navigate(`/search?country=${country}`);
   };
 
-  // Buttons đăng nhập/đăng xuất (nếu bạn có logic này)
+  // Buttons đăng nhập/đăng xuất (giữ nguyên)
   const AuthButtons = isAuthenticated ? (
     <div className={styles.authDropdownContainer}>
       <button
@@ -130,8 +144,10 @@ export default function Header() {
   );
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.solid : ""}`}>
-      <div className={styles.inner}>
+    // Áp dụng isSolid cho Header
+    <header className={`${styles.header} ${isSolid ? styles.solid : ""}`}>
+      {/* Áp dụng isWhiteText cho Inner để ép màu chữ trắng */}
+      <div className={`${styles.inner} ${isWhiteText ? styles.whiteText : ""}`}>
         {/* LOGO */}
         <div
           className={styles.logo}

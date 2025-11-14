@@ -167,34 +167,8 @@
   background: var(--bg-secondary);
   color: var(--text-primary);
 }
-.dropdownCategoryTitle {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  padding: 0.45rem 0.6rem 0.2rem;
-  margin-top: 0.5rem;
-}
-.dropdownCategoryTitle:first-of-type {
-  margin-top: 0;
-}
-.newBadge {
-  background: #ffe07a;
-  color: #111;
-  font-size: 0.55rem;
-  font-weight: 700;
-  padding: 0.25rem 0.45rem;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-}
 
 /* login  */
-
-.auth {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
 
 .loginButton {
   color: white;
@@ -203,7 +177,7 @@
   transition: all 0.2s ease;
   border: 2px solid var(--accent-color);
   border-radius: 6px;
-  background: var(--accent-color);
+  /* background: var(--accent-color); */
   font: inherit;
   font-weight: 600;
   font-size: 0.85rem;
@@ -218,24 +192,6 @@
   border-color: #c20812;
   transform: translateY(-1px);
 }
-
-.signupButton {
-  /* Nút Đăng ký nổi bật */
-  background-color: #e50914; /* Màu đỏ */
-  color: #fff;
-  text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.2s;
-  border: 1px solid #e50914;
-}
-
-.signupButton:hover {
-  background-color: #ff3847;
-}
-
-/* login  */
 
 /* SearchBox overrides inside header */
 .searchBox_root {
@@ -269,7 +225,7 @@
 .userButton:hover {
   background-color: #c20812;
   border-color: #c20812;
-  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+  box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.4);
 }
 
 .userButton svg {
@@ -357,13 +313,6 @@
   color: inherit;
 }
 
-.navWrapper {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-left: auto;
-}
-
 .actions {
   display: flex;
   align-items: center;
@@ -388,6 +337,68 @@
   background-color: var(--border-color);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 20%, transparent);
 }
+
+/* --- CÁC THAY ĐỔI MỚI CHO LOGIC CHỮ TRẮNG Ở TRANG CHỦ --- */
+
+/* Class này được áp dụng cho .inner khi là trang chủ VÀ chưa cuộn */
+.whiteText .brand,
+.whiteText .tagline {
+  color: #ffffff !important;
+}
+
+.whiteText .nav .link,
+.whiteText .nav .dropBtn {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.whiteText .nav .link:hover,
+.whiteText .nav .dropBtn:hover {
+  color: #ffffff !important;
+}
+
+/* Đảm bảo logoMark vẫn giữ màu vàng */
+.whiteText .logoMark {
+  color: #ffd54f !important;
+  border-color: #ffd54f !important;
+}
+
+/* Đảm bảo nút theme (Sun/Moon) có màu trắng/nền trong suốt */
+.whiteText .themeToggleButton {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.whiteText .themeToggleButton:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tùy chỉnh nhẹ cho SearchBox (để khớp với nền trong suốt) */
+.whiteText .searchWrap input {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+}
+
+.whiteText .searchWrap input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.whiteText .searchWrap .searchBtn {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Đảm bảo nút login/user button vẫn nổi bật và rõ ràng */
+.whiteText .loginButton {
+  color: white !important;
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+.whiteText .userButton {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
 
 /* Responsive */
 @media (max-width: 1080px) {
