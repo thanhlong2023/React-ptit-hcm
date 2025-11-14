@@ -14,6 +14,7 @@ import { useTheme } from "../Theme";
 export default function Header() {
   // 1. GỌI TẤT CẢ CÁC HOOKS TRÊN ĐẦU COMPONENT
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 

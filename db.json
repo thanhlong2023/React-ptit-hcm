@@ -6,6 +6,14 @@
       "password": "qazxsw12",
       "fullName": "Trương Công Quý",
       "createdAt": "2025-11-13T01:31:41.605Z",
+      "favorites": []
+    },
+    {
+      "id": "e365",
+      "email": "admin@gmail.com",
+      "password": "12345678",
+      "fullName": "bach",
+      "createdAt": "2025-11-13T02:29:37.074Z",
       "favorites": [
         793387,
         1382406,
