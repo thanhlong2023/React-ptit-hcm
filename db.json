@@ -7,7 +7,20 @@
       "fullName": "Trương Công Quý",
       "createdAt": "2025-11-13T01:31:41.605Z",
       "favorites": [
-        793387
+        793387,
+        1382406,
+        615453
+      ]
+    },
+    {
+      "id": "e365",
+      "email": "admin@gmial.com",
+      "password": "12345678",
+      "fullName": "bach",
+      "createdAt": "2025-11-13T02:29:37.074Z",
+      "favorites": [
+        615453,
+        980477
       ]
     }
   ]
